@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 隐私声明
+title: Privacy statement
 author: Mim0sa
 ---
 
