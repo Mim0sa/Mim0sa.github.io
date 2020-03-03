@@ -12,16 +12,18 @@ About Mim0sa
 
 ## Skills
 
-* Familiar with --- `Swift` / `HTML` 
+* Familiar with --- `Swift` / `Objective - C` 
     
 ## Achievements
 
 
-* WWDC2017 Scholarship Winner
+* WWDC 2017 Scholarship Winner
 
-* Second Price of CCCC2018
+* Third Price of CCCC 2019
 
-* Winning prize of CCCC2017
+* Second Price of CCCC 2018
+
+* Winning prize of CCCC 2017
 
 ## Contact me
 
