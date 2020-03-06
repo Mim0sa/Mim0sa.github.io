@@ -4,8 +4,6 @@ title: About
 permalink: /about/
 ---
 
-About Mim0sa
-
 ##吉彦臻的简历
 
 上海商学院（2015 - 2019）/ 本科.统招 / 计算机科学与技术专业
