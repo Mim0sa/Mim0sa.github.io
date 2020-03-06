@@ -4,7 +4,9 @@ title: About
 permalink: /about/
 ---
 
-##吉彦臻的简历
+Resume
+
+##Resume
 
 上海商学院（2015 - 2019）/ 本科.统招 / 计算机科学与技术专业
 
