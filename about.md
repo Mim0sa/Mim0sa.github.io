@@ -24,9 +24,9 @@ Resume
 * 曾任上海科技馆Swift编程入门/Swift夏令营讲师
 
 
-##Experience
+## Experience
 
-####上海乂学教育科技（2018.10 - 2019.4）
+#### 上海乂学教育科技（2018.10 - 2019.4）
 * 任iOS开发（实习）
 * 念念有词
 	* 新需求页面开发，封装公用小组件
@@ -34,14 +34,14 @@ Resume
 	* 主要调整优化原有页面、重构旧页面
 
 
-##What Else？
+## What Else？
 
-####Cell（个人App - 已下架）
+#### Cell（个人App - 已下架）
 
 * Swift开发/UIKit/SceneKit/ARKit/iPad端
 * 教育类应用/将生物实验和知识转化成简单小游戏和2D/3D模型
 
-####Playgrounds App
+#### Playgrounds App
 
 * Swift开发/类似于App
 * AR BasketBall（AR投篮游戏）
@@ -50,7 +50,7 @@ Resume
 * Cell (使用三维模型和AR效果展现生物知识及其模型)
 * 以及许多其他小应用和Swift Playgrounds
 
-####校园App部分模块开发与维护
+#### 校园App部分模块开发与维护
 
 * 校园App中Hybrid项目
 * Html+css+js+jsp开发
