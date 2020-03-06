@@ -6,7 +6,7 @@ permalink: /about/
 
 Resume
 
-##Resume
+###Resume
 
 上海商学院（2015 - 2019）/ 本科.统招 / 计算机科学与技术专业
 
@@ -50,6 +50,6 @@ Resume
 * Html+css+js+jsp开发
 * 开发维护相关页面
 
-## Contact me
+### Contact me
 
 [mim0sa@qq.com](mailto:mim0sa@qq.com)
