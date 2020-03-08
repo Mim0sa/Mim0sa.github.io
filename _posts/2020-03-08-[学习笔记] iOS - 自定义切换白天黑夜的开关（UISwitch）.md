@@ -4,21 +4,17 @@ title: ## [学习笔记] iOS | 自定义切换白天黑夜的开关（UISwitch�
 author: Mim0sa
 ---
 
-前段时间在做自己 App 适配 Dark Mode 的时候看到了一个[Procreate的动画教程](https://www.bilibili.com/video/av82589461)以及该视频简介中的灵感来源，觉得还挺有意思的，想着~~复杂的东西我做不出来做个这个总可以吧嘿嘿嘿~~，于是准备仿照风格着手实现一下。下图我实现的效果，左边是白天，右边是黑夜。
-
-## [学习笔记] iOS | 自定义切换白天黑夜的开关（UISwitch）
-
 ### 前言
 
 前段时间在做自己 App 适配 Dark Mode 的时候看到了一个[Procreate的动画教程](https://www.bilibili.com/video/av82589461)以及该视频简介中的灵感来源，觉得还挺有意思的，想着~~复杂的东西我做不出来做个这个总可以吧嘿嘿嘿~~，于是准备仿照风格着手实现一下。下图我实现的效果，左边是白天，右边是黑夜。
 
-![](https://user-gold-cdn.xitu.io/2020/3/8/170b5cee56c791b5?w=354&h=115&f=png&s=60787)
+![](/Users/mimosa/mimosa/github/Mim0sa.github.io/images/[学习笔记] iOS - 自定义切换白天黑夜的开关（UISwitch）/demo.png)
 
 ### 调研
 
 我先看了一下原生的UISwitch的功能，大致是这样的：
 
-```S
+```
 var isOn: Bool
 // A Boolean value that determines the off/on state of the switch.
 
