@@ -1,8 +1,10 @@
 ---
 layout: post
-title: Privacy statement
+title: ## [学习笔记] iOS | 自定义切换白天黑夜的开关（UISwitch）
 author: Mim0sa
 ---
+
+前段时间在做自己 App 适配 Dark Mode 的时候看到了一个[Procreate的动画教程](https://www.bilibili.com/video/av82589461)以及该视频简介中的灵感来源，觉得还挺有意思的，想着~~复杂的东西我做不出来做个这个总可以吧嘿嘿嘿~~，于是准备仿照风格着手实现一下。下图我实现的效果，左边是白天，右边是黑夜。
 
 ## [学习笔记] iOS | 自定义切换白天黑夜的开关（UISwitch）
 
@@ -16,7 +18,7 @@ author: Mim0sa
 
 我先看了一下原生的UISwitch的功能，大致是这样的：
 
-```Swift
+```S
 var isOn: Bool
 // A Boolean value that determines the off/on state of the switch.
 
@@ -46,7 +48,7 @@ var thumbTintColor: UIColor?
 
 莽的过程是比较简单的，首先是最底下 UIView 的初始化方法和设置圆角和切割：
 
-```Swift
+```
 class DNSwitch: UIView {
     init(withSystemSizeOn position: CGPoint, image: UIImage) {
         super.init(frame: CGRect(x: position.x - DNSwitch.width / 2,
@@ -59,7 +61,7 @@ class DNSwitch: UIView {
 }
 ```
 
-```Swift
+```
 extension DNSwitch {
     static let width: CGFloat = 51
     static let height: CGFloat = 31
@@ -70,7 +72,7 @@ extension DNSwitch {
 
 接下来是通过传入的 UIImage 来创建合适的 UIImageView，因为怕传进来的图片比开关本身还要小，所以做了个判断。另外我这里是在初始化时就传入了图片，所以这个函数就只触发一次。如果把 image 做成开关的一个属性，在初始化之后可以自己选择时机传入图片的话，也可以把这个方法改写成一个 `updateImage(image: UIImage)` 的更新 image 的方法，就是要注意在 update 的时候当前开关的状态是 On 还是 Off。
 
-```Swift
+```
 private func configureImageView(image: UIImage) {
     let ratio = image.size.height / frame.height
     let imgWidth = image.size.width / ratio
@@ -82,7 +84,7 @@ private func configureImageView(image: UIImage) {
 ```
 配置圆形机关的属性和设置点击手势。这里的 `DNSwitch.offset` 是指圆形机关和开关之间间隙的距离。
 
-```Swift
+```
 private func configureThumbView() {
     thumbView.frame = CGRect(x: DNSwitch.offset, y: DNSwitch.offset,
                              width: frame.height - DNSwitch.offset * 2,
@@ -111,7 +113,7 @@ private func prepareGestureRecognizer() {
 
 接下来是关于 `setOn(Bool, animated: Bool)` 的方法，我在类中放了一个 `hasAnimate` 来存放是否执行动画。
 
-```Swift
+```
 private var hasAnimate: Bool = false
 
 func setOn(_ isOn:Bool, animated: Bool) {
@@ -124,7 +126,7 @@ func setOn(_ isOn:Bool, animated: Bool) {
 
 在每次 `isOn` 更改时，会根据当前的 `hasAnimate` 和 `isOn` 来进行动画的发生。
 
-```Swift
+```
 var isOn: Bool = false { didSet { animate() } }
 
 private func animate() {
