@@ -20,10 +20,9 @@ text_skin: default # "default" (default), "dark", "forest", "ocean", "chocolate"
 highlight_theme: default # "default" (default), "tomorrow", "tomorrow-night", "tomorrow-night-eighties", "tomorrow-night-blue", "tomorrow-night-bright"
 url     : # the base hostname & protocol for your site e.g. https://www.someone.com
 baseurl : # does not include hostname
-title   : Mim0sa
+title   : Mimosa
 description: > # this means to ignore newlines until "Language & timezone"
-  It's Mim0sa.
-
+    I am Mimosa.
 
 ## => Language and Timezone
 ##############################
@@ -35,10 +34,10 @@ timezone: # see https://en.wikipedia.org/wiki/List_of_tz_database_time_zones for
 ##############################
 author:
   type      : # "person" (default), "organization"
-  name      : Your Name
+  name      : Mimosa
   url       :
-  avatar    : # path or url of avatar image (square)
-  bio       : I am an amazing person.
+  avatar    : avatar.jpg # path or url of avatar image (square)
+  bio       : I am Mimosa.
   email     :
   facebook  : # "user_name" the last part of your profile url, e.g. https://www.facebook.com/user_name
   twitter   : # "user_name" the last part of your profile url, e.g. https://twitter.com/user_name
