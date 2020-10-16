@@ -1,5 +1,5 @@
 ---
 layout: home
-# articles:
-#   excerpt_type: html
+articles:
+  excerpt_type: html
 ---
