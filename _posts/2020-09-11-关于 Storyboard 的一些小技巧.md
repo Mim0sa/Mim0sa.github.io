@@ -301,6 +301,8 @@ class LoadingView: UIView {
 
 #### 遇到的一个问题
 
+现在这个 bug 没了。
+
 我现在有一个 `Storyboard ` 文件及其运行效果如下图：
 
 ![tabbar](/resources/tabbar.png)
@@ -331,7 +333,7 @@ class LoadingView: UIView {
 
 ![4container](/resources/4container.png)
 
-经过这样的处理，我们就不用在一个控制器中处理多个复杂控件了。但要注意的是，这些子控制器的初始化方式是不能通过依赖注入来实现的，而是通股票经典的 `Storyboard` 做法：通过 segue 来实现。具体做法是，通过设置每个 segue 不同的的 `identifier`，在父控制器的 `func prepare(for segue: UIStoryboardSegue, sender: Any?)` 中识别不同的的 `identifier` 来确定不同的子控制器。
+经过这样的处理，我们就不用在一个控制器中处理多个复杂控件了。但要注意的是，这些子控制器的初始化方式是不能通过依赖注入来实现的，而是通过经典的 `Storyboard` 做法：通过 segue 来实现。具体做法是，通过设置每个 segue 不同的的 `identifier`，在父控制器的 `func prepare(for segue: UIStoryboardSegue, sender: Any?)` 中识别不同的的 `identifier` 来确定不同的子控制器。
 
 ![segueForContainer](/resources/segueForContainer.png)
 
@@ -360,7 +362,7 @@ override func prepare(for segue: UIStoryboardSegue, sender: Any?) { guard
 
 所以大家快去用 SwiftUI 吧！
 
-![gaoci](../Blog素材库/gaoci.gif)
+![gaoci](/resources/gaoci.gif)
 
 
 
