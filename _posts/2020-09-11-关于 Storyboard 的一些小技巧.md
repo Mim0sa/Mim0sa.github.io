@@ -57,7 +57,7 @@ class ViewControllerC: UIViewController { }
 
 ![CtoA](/resources/CtoA.png)
 
-![CtoA](/resources/Ctoa.gif)
+![CtoA](/resources/CtoA.gif)
 
 #### 关于 Unwind Segue 的一些思考
 
