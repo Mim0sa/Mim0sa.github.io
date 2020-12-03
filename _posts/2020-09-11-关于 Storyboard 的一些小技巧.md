@@ -1,6 +1,7 @@
 ---
 title: 关于 Storyboard 的一些小技巧
 tags: ["iOS", "笔记"]
+key: blog-2020-09-11
 ---
 
 用了 Storyboard 很久了，在这记录一些使用 Storyboard 时的一些小技巧和小问题。主要内容有：Unwind Segue、@IBInspectable、Storyboard Reference 以及 Container View。
