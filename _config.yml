@@ -168,11 +168,11 @@ search:
 ## => Analytics
 ##############################
 analytics:
-  provider: false # false (default), "google", "custom"
+  provider: google # false (default), "google", "custom"
 
   ## Google Analytics
   google:
-    tracking_id : # Google Analytics id for the site
+    tracking_id : G-K25NLVPE7H # Google Analytics id for the site
     anonymize_ip: false # Anonymize IP tracking for Analytics
 
 
@@ -212,7 +212,7 @@ defaults:
         toc: true
       show_edit_on_github: false
       show_subscribe: false
-      pageview: true
+      pageview: false
 
 
 ## => Plugins
