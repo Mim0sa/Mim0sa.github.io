@@ -26,19 +26,19 @@ titles:
 key: page-about
 ---
 
-update 2021
+update 2019
 
-### Education
+## Education
 
 * 上海商学院（2015 - 2019）/ 本科.统招 / 计算机科学与技术专业
 
 
-### Skills
+## Skills
 
 * 熟悉 `Swift` / 写过`Objective-C` 
 
 
-### Achievements
+## Achievements
 * 中国高校计算机大赛移动应用创新赛三等奖（2019）/二等奖（2018）/优秀奖（2017）
 * WWDC 2017 Scholarship Winner
 * 参与开发与维护校园App（Hybrid应用）
@@ -46,7 +46,7 @@ update 2021
 * 曾任上海科技馆Swift编程入门/Swift夏令营讲师
 
 
-### Experience
+## Experience
 
 #### 上海乂学教育科技（2018.10 - 2019.4）
 * 任iOS开发（实习）
@@ -56,7 +56,7 @@ update 2021
 	* 主要调整优化原有页面、重构旧页面
 
 
-### What Else？
+## What Else？
 
 #### Cell（个人App - 已下架）
 
@@ -78,6 +78,6 @@ update 2021
 * Html+css+js+jsp开发
 * 开发维护相关页面
 
-### Contact me
+## Contact me
 
 [mim0sa@qq.com](mailto:mim0sa@qq.com)
