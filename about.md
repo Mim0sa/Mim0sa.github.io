@@ -26,7 +26,7 @@ titles:
 key: page-about
 ---
 
->  Updated in 2021.02.03
+>  Updated in 2021-02-03
 
 
 
@@ -71,7 +71,7 @@ key: page-about
   * 该赛事由 Apple 赞助，内容为 iOS 生态下 App 的实现、创意、运营的综合考量
 * WWDC 2017 Scholarship Winner
 * 受邀参加香港教与学博览会分享开发 Swift Playgrounds 经验
-* 受邀在富士康、捷普绿点等 Apple 供应链工厂给流水线工人上过 Swift 编程入门课
+* 受邀在富士康、捷普绿点等 Apple 供应链工厂给流水线工人讲授 Swift 编程入门课
 * 曾任上海科技馆 Swift 编程入门讲师 ｜ Swift 夏令营讲师
 
 **Cell（个人App - 已下架）**
@@ -83,7 +83,7 @@ key: page-about
 
 * Swift 开发 ｜ 类似于 App
 * AR BasketBall（AR投篮游戏）
-* Bubble Sorting（图形化排序算法的过程,帮助理解排序算法）
+* Bubble Sorting（图形化排序算法的过程，帮助理解排序算法）
 * Art Camera（机器学习实现图片艺术风格迁移）
 * Cell（使用三维模型和AR效果展现生物知识及其模型）
 * 以及许多其他小应用和 Swift Playgrounds
