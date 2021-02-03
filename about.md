@@ -26,57 +26,55 @@ titles:
 key: page-about
 ---
 
-update 2021
+>  Updated in 2021.02.03
 
-### Education
+### Introduction
 
-* 上海商学院（2015 - 2019）/ 本科.统招 / 计算机科学与技术专业
+* **Mimosa** ｜ 小名 Mim0sa ｜ 马甲 Mimoku
+* 上海商学院（2015 - 2019）｜ 本科.统招 ｜ 计算机科学与技术专业
+* 除了写代码以外，爱好广泛且不深入
+  * `机械键盘`  `料理`  `建筑手绘`  `哲学`  `设计`  `麦当劳`
 
 
 ### Skills
 
-* 熟悉 `Swift` / 写过`Objective-C` 
+* 熟悉 `Swift` ｜ 写过 `Objective-C` 
+* 最近在看 `Ruby`  `SwiftUI` ｜ 对 `Go` 感兴趣
 
 
 ### Achievements
-* 中国高校计算机大赛移动应用创新赛三等奖（2019）/二等奖（2018）/优秀奖（2017）
+* 中国高校计算机大赛移动应用创新赛三等奖(2019) ｜ 二等奖(2018) ｜ 优秀奖(2017)
 * WWDC 2017 Scholarship Winner
-* 参与开发与维护校园App（Hybrid应用）
-* 受邀参加香港教与学博览会分享开发Swift Playgrounds经验
-* 曾任上海科技馆Swift编程入门/Swift夏令营讲师
-
+* 受邀参加香港教与学博览会分享开发 Swift Playgrounds 经验
+* 曾任上海科技馆 Swift 编程入门讲师 ｜ Swift 夏令营讲师
 
 ### Experience
 
+#### 现在公司 （2020.06 - 至今）
+
+* 任 iOS 开发
+
 #### 上海乂学教育科技（2018.10 - 2019.4）
-* 任iOS开发（实习）
-* 念念有词
-	* 新需求页面开发，封装公用小组件
-* 松鼠AI课堂
-	* 主要调整优化原有页面、重构旧页面
+* 任 iOS 开发（实习）
+* 新需求页面开发、封装公用小组件
+* 主要调整优化原有页面、重构旧页面
 
 
 ### What Else？
 
 #### Cell（个人App - 已下架）
 
-* Swift开发/UIKit/SceneKit/ARKit/iPad端
-* 教育类应用/将生物实验和知识转化成简单小游戏和2D/3D模型
+* Swift 开发 ｜ UIKit ｜ SceneKit ｜ ARKit ｜ iPad 端
+* 教育类应用/将生物实验和知识转化成简单小游戏和 2D/3D 模型
 
 #### Playgrounds App
 
-* Swift开发/类似于App
+* Swift 开发 ｜ 类似于 App
 * AR BasketBall（AR投篮游戏）
-* Bubble Sorting (图形化排序算法的过程,帮助理解排序算法)
-* Art Camera (机器学习实现图片艺术风格迁移)
-* Cell (使用三维模型和AR效果展现生物知识及其模型)
-* 以及许多其他小应用和Swift Playgrounds
-
-#### 校园App部分模块开发与维护
-
-* 校园App中Hybrid项目
-* Html+css+js+jsp开发
-* 开发维护相关页面
+* Bubble Sorting（图形化排序算法的过程,帮助理解排序算法）
+* Art Camera（机器学习实现图片艺术风格迁移）
+* Cell（使用三维模型和AR效果展现生物知识及其模型）
+* 以及许多其他小应用和 Swift Playgrounds
 
 ### Contact me
 
