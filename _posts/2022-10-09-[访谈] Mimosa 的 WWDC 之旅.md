@@ -10,6 +10,8 @@ Mimosa 是摸鱼周报的编辑之一，负责学习资料和内容推荐整理�
 
 ![cover](resources-[访谈] Mimosa 的 WWDC 之旅/WWDC_cover.jpeg)
 
+<!--more-->
+
 > 这张照片是当时一起去的小伙伴拍的，绝了
 
 ### 简单介绍下自己吧
