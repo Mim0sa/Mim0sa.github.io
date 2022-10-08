@@ -1,5 +1,5 @@
 ---
-title: [访谈] Mimosa 的 WWDC 之旅
+title: Mimosa 的 WWDC 之旅
 tags: ["生活"]
 key: blog-2022-10-08
 ---
