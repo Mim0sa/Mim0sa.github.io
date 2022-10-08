@@ -1,7 +1,7 @@
 ---
 title: Mimosa 的 WWDC 之旅
 tags: ["生活"]
-key: blog-2022-10-08
+key: blog-2022-10-06
 ---
 
 > 本文为访谈，最后更新于 2022.10
