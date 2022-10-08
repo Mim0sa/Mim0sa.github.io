@@ -642,7 +642,7 @@ rescue MyError
 end
 ```
 
-### 「10」块
+### 「11」块
 
 块（block）的简单使用：
 
