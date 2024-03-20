@@ -33,7 +33,7 @@ key: page-about
 * **吉彦臻**
 * 工作经验 3 年
 * 上海商学院（2015 - 2019）｜ 本科.统招 ｜ 计算机科学与技术专业
-* 我的 [掘金主页](https://juejin.cn/user/1433418892590136/posts) 和 [博客主页](https://mim0sa.github.io/)
+* 我的 [掘金主页](https://juejin.cn/user/1433418892590136/posts) 和 [博客主页](https://mim0sa.github.io/archive)
 * [「老司机周报 WWDC 21/22/23 内参」](https://xiaozhuanlan.com/wwdc23)作者
 * [「iOS 摸鱼周报」](https://mp.weixin.qq.com/s/94zyGszHUx_GHLq8OvlHmw)（前）联合编辑
 
