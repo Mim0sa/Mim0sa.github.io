@@ -26,75 +26,69 @@ titles:
 key: page-about
 ---
 
->  Updated in 2021-02-03
-
-
+>  Updated in 2024-03-20
 
 ### Introduction
 
-* **Mimosa** ｜ 小名 Mim0sa ｜ 马甲 Mimoku
+* **吉彦臻**
+* 工作经验 3 年
 * 上海商学院（2015 - 2019）｜ 本科.统招 ｜ 计算机科学与技术专业
-* 除了写代码以外，爱好广泛且不深入
-  * `机械键盘`  `料理`  `建筑手绘`  `哲学`  `设计`  `麦当劳`
-
-
-
+* 我的 [掘金主页](https://juejin.cn/user/1433418892590136/posts) 和 [博客主页](https://mim0sa.github.io/)
+* [「老司机周报 WWDC 21/22/23 内参」](https://xiaozhuanlan.com/wwdc23)作者
+* [「iOS 摸鱼周报」](https://mp.weixin.qq.com/s/94zyGszHUx_GHLq8OvlHmw)（前）联合编辑
 
 ### Skills
 
-* 熟悉 `Swift` ｜ 写过 `Objective-C` 
-* 最近在看 `Ruby`  `SwiftUI` ｜ 对 `Go` 感兴趣
-
-
-
+* 平时主要使用 `Swift` ｜ 维护过 `Objective-C` 项目
+* 对界面 UI 的搭建、优化、适配比较有经验
+* 能够根据项目业务逻辑以及项目需求封装常用的工具类
+* 熟悉常用的设计模式、常用的 Swift 第三方库、Git 的使用
 
 ### Experience
 
-**现在公司 （2020.06 - 至今）**
+**上海传墨信息科技有限公司 （2020.06 - 2023.07）**
 
 * 任 iOS 开发
+* 负责过多个 iOS 项目的一些内容：
+  * 较复杂界面的开发、迭代和维护
+  * 与后端沟通、调试接口
+  * 迁移内购系统至 `StoreKit2`
+  * 管理签名、证书、打包等流程
+  * 负责多个 App 主题切换模块
+  * `CoreML` 模型落地
+  * 界面、内存性能优化
+  * 代码混淆、替换
+* 参加过的非 iOS 相关内容：
+  * GitHub Action 自动化打包
+  * AIGC 训图、训练模型、模型融合
+  * UI 设计
 
 **上海乂学教育科技（2018.10 - 2019.4）**
 
 * 任 iOS 开发（实习）
-* 新需求页面开发、封装公用小组件
-* 主要调整优化原有页面、重构旧页面
-
-
-
 
 ### What Else？
 
-> 以下是读书时的一些经历
+* 个人 App：[FundCat](https://apps.apple.com/cn/app/fundcat/id6479296370)
 
-* 中国高校计算机大赛移动应用创新赛三等奖(2019) ｜ 二等奖(2018) ｜ 优秀奖(2017)
-  * 该赛事由 Apple 赞助，内容为 iOS 生态下 App 的实现、创意、运营的综合考量
-* WWDC 2017 Scholarship Winner
+> 以下是以前的一些经历
+
+* WWDC Scholarship Winner
 * 受邀参加香港教与学博览会分享开发 Swift Playgrounds 经验
 * 受邀在富士康、捷普绿点等 Apple 供应链工厂给流水线工人讲授 Swift 编程入门课
 * 曾任上海科技馆 Swift 编程入门讲师 ｜ Swift 夏令营讲师
-
-**Cell（个人App - 已下架）**
-
-* Swift 开发 ｜ UIKit ｜ SceneKit ｜ ARKit ｜ iPad 端
-* 教育类应用/将生物实验和知识转化成简单小游戏和 2D/3D 模型
-
-**Playgrounds App**
-
-* Swift 开发 ｜ 类似于 App
-* AR BasketBall（AR投篮游戏）
-* Bubble Sorting（图形化排序算法的过程，帮助理解排序算法）
-* Art Camera（机器学习实现图片艺术风格迁移）
-* Cell（使用三维模型和AR效果展现生物知识及其模型）
-* 以及许多其他小应用和 Swift Playgrounds
-
-
+* 中国高校计算机大赛移动应用创新赛三等奖(2019) ｜ 二等奖(2018) ｜ 优秀奖(2017)
+  * 该赛事由 Apple 赞助，内容为 iOS 生态下 App 的实现、创意、运营的综合考量
 
 ### Contact me
 
-wx: wxhndkyzjs
+Wechat: wxhndkyzjs
 
 Mail: [mim0sa@qq.com](mailto:mim0sa@qq.com)
+
+Phone：15921135912
+
+mailto:mim0sa@qq.com)
 
 
 
