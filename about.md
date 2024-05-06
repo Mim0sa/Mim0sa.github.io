@@ -46,6 +46,8 @@ key: page-about
 
 第一届「机智老丁羽毛球杯」第四名（共四人参赛）
 
+与库克有单独合照的帅哥
+
 [「老司机周报 WWDC 21/22/23 内参」](https://xiaozhuanlan.com/wwdc23)作者
 
 [「iOS 摸鱼周报」](https://mp.weixin.qq.com/s/94zyGszHUx_GHLq8OvlHmw)（前）联合编辑
