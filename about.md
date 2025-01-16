@@ -54,11 +54,13 @@ key: page-about
 
 ### 联系
 
-Wechat: wxhndkyzjs
+> base64
 
-Mail: [mim0sa@qq.com](mailto:mim0sa@qq.com)
+Wechat: d3hobmRreXpqcw==
 
-Phone：15921135912
+Mail: bWltMHNhQHFxLmNvbQ==
+
+Phone: MTU5MjExMzU5MTI=
 
 
 
