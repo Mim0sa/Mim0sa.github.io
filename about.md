@@ -26,7 +26,7 @@ titles:
 key: page-about
 ---
 
->  Updated in 2024-05-06
+>  Updated May 6, 2024.
 
 ### Mim0sa
 
