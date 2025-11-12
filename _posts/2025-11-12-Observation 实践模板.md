@@ -1,18 +1,18 @@
 ---
-title: Observation 实践模版
+title: Observation 实践模板
 tags: ["iOS"]
 key: blog-2025-11-12
 ---
 
 如何使用 `Observation`，实际上是很容易搜索到的内容，即使是在中文互联网，也能找到不少讲解清晰的 `Observation` 框架使用指南，原理剖析。但是问题出在 AI 不能很好的去实践 `Observation` 框架，我想肯定和之前推出的 `@ObservableObject`、`@StateObject` 等看起来有点类似的关键字有关，AI 有的时候能搞清楚两者区别，有的时候又会将两者混用，让人胆战心惊。
 
-所以我在这边准备了一份给 AI 的 `Observation` 实践模版，在需要的时候，能让AI 更懂 `Observation`。
+所以我在这边准备了一份给 AI 的 `Observation` 实践模板，在需要的时候，能让AI 更懂 `Observation`。
 
 <!--more-->
 
-> 每个项目的架构、每个人的代码风格不同，会导致模版代码有差异，请检查后使用
+> 每个项目的架构、每个人的代码风格不同，会导致模板代码有差异，请检查后使用
 
-## 实践模版
+## 实践模板
 
 ##### 写在代码前
 
