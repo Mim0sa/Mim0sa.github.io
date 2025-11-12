@@ -52,7 +52,28 @@ struct BlogView: View {
 }
 ```
 
-通过注入的形式使用：
+通过直接传递的形式使用：
+
+```swift
+struct BlogView: View {
+    @State var blog = Blog(title: "溪云初起日沉阁", author: "Mim0sa")
+    var body: some View {
+        DisplayView(blog: blog).padding()
+    }
+}
+
+struct DisplayView: View {
+    let blog: Blog
+    var body: some View {
+        VStack {
+            Text("Title: \(blog.title)")
+            Text("Author: \(blog.author)")
+        }
+    }
+}
+```
+
+通过直接传递的形式使用，同时需要实现数据的绑定：
 
 ```swift
 struct BlogView: View {
@@ -82,7 +103,7 @@ struct ControlView: View {
 }
 ```
 
-另一种通过注入的形式使用；可行，但不推荐这样使用：
+另一种通过传递的形式使用；可行，但性质变了，不推荐这样使用：
 
 ```swift
 struct BlogView: View {
@@ -112,7 +133,7 @@ struct ControlView: View {
 }
 ```
 
-通过 `@Enviroment` 来使用，注意 `@Bindable` 的使用：
+通过 enviroment 注入可观察对象，供 `@Enviroment` 来使用；注意 `@Bindable` 的绑定实现：
 
 ```swift
 struct BlogView: View {
