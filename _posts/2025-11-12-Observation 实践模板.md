@@ -1,6 +1,6 @@
 ---
 title: Observation 实践模板
-tags: ["iOS"]
+tags: ["iOS", "Swift", "AI"]
 key: blog-2025-11-12
 ---
 
