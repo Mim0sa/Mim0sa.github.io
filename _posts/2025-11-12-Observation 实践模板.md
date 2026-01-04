@@ -238,9 +238,41 @@ struct AuthorView: View {
 }
 ```
 
+##### `@Observable` 类的初始化方法
 
+要注意被 `@Observable` 修饰的类的初始化方法。虽然 SwiftUI 不会在每次重建 View 的时候覆盖一个新的状态，但它仍然会评估初始化器表达式，每次都会运行下面代码的打印。所以我们应当尽量保持 `@Observable` 类的初始化方法里不要有复杂的逻辑。
 
+```swift
+@Observable class Blog {
+    var title: String
+    var author: String
+  	var progress: Double = 0.0
+    
+    init(title: String, author: String) {
+      	print("hi")
+        self.title = title
+        self.author = author
+    }
+}
+```
 
+如果不可避免的需要在初始化逻辑里有复杂的逻辑，可以将类的创建延迟：
+
+```swift
+struct BlogView: View {
+    @State var blog: Blog?
+    var body: some View {
+        VStack {
+            Text("Title: \(blog.title)")
+            Text("Author: \(blog.author)")
+        }
+        .padding()
+      	.task {
+          	blog = Blog(title: "溪云初起日沉阁", author: "Mim0sa")
+        }
+    }
+}
+```
 
 
 
