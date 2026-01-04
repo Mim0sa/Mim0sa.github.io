@@ -14,7 +14,7 @@ key: blog-2020-09-11
 
 例如，当你有三个页面（如下图）关系为 A -> B -> C，当我们点击两次 Next 按钮到达页面 C 时，我们期望点击 Back 按钮能够退回页面 B 。
 
-![AtoBtoC](/resources/AtoBtoC.png)
+![AtoBtoC](/resources/archived/AtoBtoC.png)
 
 为了实现点击 Back 能够退回到页面 B 。我们首先要在页面B中添加 Unwind Segue 代码。
 
@@ -36,9 +36,9 @@ class ViewControllerC: UIViewController { }
 
 在写好这个方法之后，在 Storyboard 中，我们通过在页面 C 中，按住 Ctrl 并拖拽 Back 按钮至页面 C 上放的 Exit 出口处松手，这时会弹出可用的 Unwind Segue，就可以连接上我们之前在页面 B 中预先写好的代码了。（所以 Unwind Segue 也有人叫 Exit Segue）
 
-![UnwindSegue](/resources/UnwindSegue.png)
+![UnwindSegue](/resources/archived/UnwindSegue.png)
 
-![UnwindAction](/resources/UnwindAction.png)
+![UnwindAction](/resources/archived/UnwindAction.png)
 
 现在我们运行程序，点击两次 Next 到达页面 C 后，点击 Back 按钮，可以看到退回了页面 B ，并且你也可以在 unwind 方法中添加你想要做的退回到页面 B 之后的操作。
 
@@ -56,9 +56,9 @@ class ViewControllerB: UIViewController {
 class ViewControllerC: UIViewController { }
 ```
 
-![CtoA](/resources/CtoA.png)
+![CtoA](/resources/archived/CtoA.png)
 
-![CtoA](/resources/CtoA.gif)
+![CtoA](/resources/archived/CtoA.gif)
 
 #### 关于 Unwind Segue 的一些思考
 
@@ -82,7 +82,7 @@ class ViewControllerC: UIViewController { }
 
 在 `Storyboard` 中我们可以直接通过属性检查器面板给控件设置一些常用的属性。但遇到一些棘手的地方，比如设置 `layer` 的相关属性，就只能通过添加 runtime attributes 来实现。这种实现方式不可复用而且没有代码提示，用起来体验很差。
 
-![runtimeAttributes](/resources/runtimeAttributes.png) 
+![runtimeAttributes](/resources/archived/runtimeAttributes.png) 
 
 但有了  `@IBInspectable` 之后就比较方便了。例如我们可以给 `UIView` 的 Extension 中添加一个属性 `cornerRadius` 来映射 `layer` 层的 `layer.cornerRadius` 属性。这样我们就能在属性检查器面板直接设置 `UIView` 及其子类的 `layer.cornerRadius` 属性。
 
@@ -95,7 +95,7 @@ extension UIView {
 }
 ```
 
-![cornerRadius](/resources/cornerRadius.png)
+![cornerRadius](/resources/archived/cornerRadius.png)
 
 类似的我们也可以通过配置 `borderWidth` 和 `borderColor` 来实现类似效果。
 
@@ -131,7 +131,7 @@ extension UIView {
 > }
 > ```
 >
-> ![CALayerInspectable](/resources/CALayerInspectable.png)
+> ![CALayerInspectable](/resources/archived/CALayerInspectable.png)
 
 以上是 `@IBInspectable` 的一些简单运用，但 `@IBInspectable` 能做的事情远不止如此。这里抛砖引玉给大家举两个例子感受一下：
 
@@ -205,9 +205,9 @@ class GradientView: UIView {
 
 写完这些我们再去 `Storyboard` 里，拖一个普通的 `UIView` 到屏幕上，将它的类设置成我们写的 `GradientView`，就可以在属性控制器面板看到这些被 `@IBInspectable` 修饰的属性。并且通过以下简单的设置，你就可以给你的视图配置上带三种颜色的渐变背景。我在这边给 `GradientView` 添加了边距 50 的约束，让我们来旋转看看效果！
 
-![inspectGradient](/resources/inspectGradient.png)
+![inspectGradient](/resources/archived/inspectGradient.png)
 
-![Rotate](/resources/Rotate.gif)
+![Rotate](/resources/archived/Rotate.gif)
 
 如果你的 Mac 性能不错，也可以在  `GradientView` 类前加一个 `@IBDesignable`，这样你就可以在 `Storyboard` 中实时看到效果。
 
@@ -215,13 +215,13 @@ class GradientView: UIView {
 @IBDesignable class GradientView: UIView { ... }
 ```
 
-![ibdesign](/resources/ibdesign.png)
+![ibdesign](/resources/archived/ibdesign.png)
 
 #### 动画
 
 先给大家看一下效果，在这个例子中可以定制的属性是图片（球）、阴影颜色、弹跳速度、球的弹性以及是否开启动画。
 
-![animation](/resources/animation.gif)
+![animation](/resources/archived/animation.gif)
 
 可以看到这其实是9个类似的视图，做法和之前是比较类似的，在这就不详细解释代码了。
 
@@ -284,7 +284,7 @@ class LoadingView: UIView {
 
 >  一个可能让人感觉疑惑的点是：为什么选择了 `shadowColor` 和 `isAnimating` 的 `didSet` 作为我创建视图和启动动画的时机？能保证其他属性一定在该属性之前被赋值吗？答案是：不能。如果你和我一样懒，选择使用某个属性的 `didSet` 作为某些事件发生的时机，且在这个时机你需要其他属性已经被正确赋值，那你需要保证在 `Storyboard` 面板中，那个属性是最后被设置的（或者尽量靠后），换一句话说就是：当你设置完所有属性时，你可以去身份检查器的 runtime attributes 中检查你的那个属性是不是尽量靠后，下图显示了我的 `isAnimating`  属性是相对靠后的。（这个例子中 `shadowColor` 属性靠不靠后无所谓）
 >
-> ![lastAttribute](/resources/lastAttribute.png)
+> ![lastAttribute](/resources/archived/lastAttribute.png)
 >
 > 另外，`@IBDesignable` 并不能对动画、Timer等事件作出反应（貌似），所以不要妄想加上 `@IBDesignable` 后能在 `Storyboard` 中看到动画👻。
 >
@@ -306,21 +306,21 @@ class LoadingView: UIView {
 
 我现在有一个 `Storyboard ` 文件及其运行效果如下图：
 
-![tabbar](/resources/tabbar.png)
+![tabbar](/resources/archived/tabbar.png)
 
 我现在想要分离第一个 Tab 到别的文件，也就是 1 号页面，我按照方法一操作，选择 Editor -> Refactor to Storyboard -> 选择路径和名字，得到如下效果：
 
-![tab1](/resources/tab1.png)
+![tab1](/resources/archived/tab1.png)
 
 现在两部分已经分离了，正常来说这是一个圆满结束，但不知道你有没有注意到 Tabbar 上的图标变了，这时如果你是较低版本的 iOS 系统支持，运行之后也会是这一个蓝色方块，但高版本好像又没有这个问题。我试图选择那个  `Storyboard Reference`，更改他 item 上的图标以及名称，可以更改但没有效果。
 
-![item](/resources/item.png)
+![item](/resources/archived/item.png)
 
 #### 解决方案
 
 最后我找的解决办法令人匪夷所思，是在刚刚新建的那个 `Storyboard` 文件中，给那个 tab1 从控件库中自己拖一个 tabbar item 上去装装样子设置一下，就好了诶🥶。
 
-![solution](/resources/solution.png)
+![solution](/resources/archived/solution.png)
 
 ### 4.  Container View
 
@@ -330,13 +330,13 @@ class LoadingView: UIView {
 
 实现的方式也很简单，在控件库中找到 Container View，并把它拖到  `Controller` 上即可。(我拖了4个)
 
-![container](/resources/container.png)
+![container](/resources/archived/container.png)
 
-![4container](/resources/4container.png)
+![4container](/resources/archived/4container.png)
 
 经过这样的处理，我们就不用在一个控制器中处理多个复杂控件了。但要注意的是，这些子控制器的初始化方式是不能通过依赖注入来实现的，而是通过经典的 `Storyboard` 做法：通过 segue 来实现。具体做法是，通过设置每个 segue 不同的的 `identifier`，在父控制器的 `func prepare(for segue: UIStoryboardSegue, sender: Any?)` 中识别不同的的 `identifier` 来确定不同的子控制器。
 
-![segueForContainer](/resources/segueForContainer.png)
+![segueForContainer](/resources/archived/segueForContainer.png)
 
 ```swift
 override func prepare(for segue: UIStoryboardSegue, sender: Any?) { guard
@@ -363,7 +363,7 @@ override func prepare(for segue: UIStoryboardSegue, sender: Any?) { guard
 
 所以大家快去用 SwiftUI 吧！
 
-![gaoci](/resources/gaoci.gif)
+![gaoci](/resources/archived/gaoci.gif)
 
 
 
