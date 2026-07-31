@@ -1,16 +1,15 @@
 # AGENTS.md
 
-## 项目说明
+## 项目
 
-- `Archive/` 是历史文章的原始存档，不直接参与网站生成，也不要修改或删除其中的原文件。
-- `MyBlog/` 是基于 Swift Publish 的静态博客项目。
-- 网站内容来自 `MyBlog/Content/`，主题位于 `MyBlog/Sources/MyBlog/MimosaTheme.swift`，样式位于 `MyBlog/Resources/MimosaTheme/styles.css`。
-- `MyBlog/Output/` 是 Publish 的生成结果，不要手工编辑。
+- `Archive/` 是历史原始存档，除非明确要求，否则不要修改。
+- `MyBlog/` 是 Swift Publish 博客；内容在 `Content/`，主题在 `Sources/MyBlog/MimosaTheme.swift`，样式在 `Resources/MimosaTheme/styles.css`。
+- `MyBlog/Output/` 是生成产物，已忽略；不要手工编辑或提交。
 
-## 文章迁移
+## 文章
 
-- 正式文章放在 `MyBlog/Content/posts/`，使用稳定的英文文件名作为 URL slug。
-- metadata 使用以下格式：
+- 文章放在 `MyBlog/Content/posts/`，使用稳定的英文 URL slug。
+- metadata：
 
 ```markdown
 ---
@@ -20,26 +19,15 @@ tags: iOS, Swift
 ---
 ```
 
-- 不要为文章补写 `description`，文章列表也不使用独立封面。
-- 每篇文章使用单独一行 `<!--more-->` 标记摘要结束位置；文章列表完整渲染该标记之前的正文、图片、代码和列表。
-- 图片放在 `MyBlog/Resources/Image/posts/<article-slug>/`。
-- Markdown 图片使用 `/Image/posts/<article-slug>/image.png` 形式的绝对路径。
-- 迁移时保留原文内容，只调整 metadata、资源路径和明显的格式问题。
-- 网站的“归档”页面按年份分组，每行显示月日和文章标题；不要把旧文章迁入 `Content/archive/`。
+- 保留原文标题、日期、标签和正文；不要改写标签或补写 `description`。
+- 使用单独一行 `<!--more-->`；文章列表完整渲染其前面的内容，不使用独立封面。
+- 图片放在 `MyBlog/Resources/Image/posts/<slug>/`，引用路径为 `/Image/posts/<slug>/image.png`。
+- 归档按年份显示“月日 + 标题”，标签在归档页筛选；不要把文章放进 `Content/archive/`。
 
-## 开发与验证
+## 构建与发布
 
-在 `MyBlog/` 目录运行：
+- 在 `MyBlog/` 运行 `swift run`，确认页面、图片、分页、RSS 和 sitemap 正常。
+- 推送 `master` 后，[Pages 工作流](.github/workflows/pages.yml) 会执行 Release 构建并发布到 `https://mim0sa.github.io`。
+- 发布源码到 `origin`；不要手动发布 `Output/`。
 
-```bash
-swift run
-```
-
-每次修改内容或主题后，都应确认：
-
-- 构建成功并重新生成 `Output/`。
-- 文章标题、日期和标签正确。
-- 正文图片全部可访问，移动端没有横向溢出。
-- `feed.rss` 与 `sitemap.xml` 包含新文章。
-
-保持 Mim0sa 主题的深色、克制和长文阅读导向；优先保证清晰排版、响应式布局与可访问性。
+保持 Mim0sa 主题克制、适合长文阅读，并兼顾明暗模式、响应式布局与可访问性。
