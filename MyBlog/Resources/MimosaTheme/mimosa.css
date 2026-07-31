@@ -23,6 +23,7 @@
     --cover-outline: rgba(255, 255, 255, 0.05);
     --content-width: 760px;
     --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    --font-brand: "Songti SC", STSong, "Noto Serif CJK SC", serif;
     --font-code: Menlo, Monaco, Consolas, "Andale Mono", "Lucida Console",
         "Courier New", monospace;
 }
@@ -151,11 +152,39 @@ header a {
     text-decoration: none;
 }
 
-.headerLogo {
+.site-brand {
+    align-items: center;
+    color: var(--text);
+    display: inline-flex;
+    flex: 0 1 auto;
+    gap: 12px;
+    min-width: 0;
+}
+
+.site-brand:hover {
+    color: var(--text);
+}
+
+.site-brand-mark {
     display: block;
-    height: auto;
-    transition: filter 180ms ease;
-    width: min(280px, 42vw);
+    flex: 0 0 auto;
+    height: 44px;
+    object-fit: contain;
+    transition: transform 160ms ease;
+    width: 44px;
+}
+
+.site-brand:hover .site-brand-mark {
+    transform: scale(1.04);
+}
+
+.site-brand-name {
+    font-family: var(--font-brand);
+    font-size: 1.18rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    line-height: 1;
+    white-space: nowrap;
 }
 
 .header-actions {
@@ -261,10 +290,6 @@ header a {
 :root[data-theme="dark"] .theme-icon-sun,
 :root[data-theme="light"] .theme-icon-moon {
     display: block;
-}
-
-:root[data-theme="light"] .headerLogo {
-    filter: invert(1);
 }
 
 h1,
@@ -813,8 +838,18 @@ footer p {
         padding-top: 18px;
     }
 
-    .headerLogo {
-        width: min(150px, 38vw);
+    .site-brand {
+        gap: 8px;
+    }
+
+    .site-brand-mark {
+        height: 34px;
+        width: 34px;
+    }
+
+    .site-brand-name {
+        font-size: 0.96rem;
+        letter-spacing: 0.04em;
     }
 
     .header-actions {
@@ -838,10 +873,6 @@ footer p {
     .theme-icon {
         height: 16px;
         width: 16px;
-    }
-
-    :root[data-theme="light"] .headerLogo {
-        filter: invert(1);
     }
 
     .article-header::before {
@@ -922,4 +953,43 @@ footer p {
         font-size: 0.98rem;
     }
 
+}
+
+@media (max-width: 420px) {
+    header .wrapper {
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+
+    .site-brand {
+        gap: 6px;
+    }
+
+    .site-brand-mark {
+        height: 30px;
+        width: 30px;
+    }
+
+    .site-brand-name {
+        font-size: 0.88rem;
+        letter-spacing: 0.01em;
+    }
+
+    .header-actions {
+        gap: 8px;
+        margin-left: 8px;
+    }
+
+    .headerNavigation {
+        font-size: 0.68rem;
+    }
+
+    .headerNavigation ul {
+        gap: 8px;
+    }
+
+    .theme-toggle {
+        height: 30px;
+        width: 30px;
+    }
 }

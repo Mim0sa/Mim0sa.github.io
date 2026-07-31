@@ -11,7 +11,7 @@ public extension Theme {
         Theme(
             htmlFactory: FoundationHTMLFactory(),
             resourcePaths: [
-                "Resources/MimosaTheme/styles.css",
+                "Resources/MimosaTheme/mimosa.css",
                 "Resources/MimosaTheme/archive.js",
                 "Resources/MimosaTheme/theme.js"
             ]
@@ -82,6 +82,9 @@ extension PublishingStep where Site == MyBlog {
 private struct FoundationHTMLFactory<Site: Website>: HTMLFactory {
     func makeIndexHTML(for index: Index,
                        context: PublishingContext<Site>) throws -> HTML {
+        var headIndex = index
+        headIndex.title = ""
+
         let items = context.allItems(
             sortedBy: \.date,
             order: .descending
@@ -92,7 +95,11 @@ private struct FoundationHTMLFactory<Site: Website>: HTMLFactory {
 
         return HTML(
             .lang(context.site.language),
-            .head(for: index, on: context.site),
+            .head(
+                for: headIndex,
+                on: context.site,
+                stylesheetPaths: ["/mimosa.css"]
+            ),
             .body {
                 ThemeScript()
                 SiteHeader(
@@ -121,7 +128,11 @@ private struct FoundationHTMLFactory<Site: Website>: HTMLFactory {
 
         return HTML(
             .lang(context.site.language),
-            .head(for: section, on: context.site),
+            .head(
+                for: section,
+                on: context.site,
+                stylesheetPaths: ["/mimosa.css"]
+            ),
             .body {
                 ThemeScript()
                 SiteHeader(context: context, selectedSelectionID: section.id)
@@ -181,7 +192,11 @@ private struct FoundationHTMLFactory<Site: Website>: HTMLFactory {
                       context: PublishingContext<Site>) throws -> HTML {
         return HTML(
             .lang(context.site.language),
-            .head(for: item, on: context.site),
+            .head(
+                for: item,
+                on: context.site,
+                stylesheetPaths: ["/mimosa.css"]
+            ),
                 .body(
                     .class("item-page"),
                     .components {
@@ -220,7 +235,11 @@ private struct FoundationHTMLFactory<Site: Website>: HTMLFactory {
 
             return HTML(
                 .lang(context.site.language),
-                .head(for: page, on: context.site),
+                .head(
+                    for: page,
+                    on: context.site,
+                    stylesheetPaths: ["/mimosa.css"]
+                ),
                 .body {
                     ThemeScript()
                     SiteHeader(
@@ -245,7 +264,11 @@ private struct FoundationHTMLFactory<Site: Website>: HTMLFactory {
 
         return HTML(
             .lang(context.site.language),
-            .head(for: page, on: context.site),
+            .head(
+                for: page,
+                on: context.site,
+                stylesheetPaths: ["/mimosa.css"]
+            ),
             .body {
                 ThemeScript()
                 SiteHeader(context: context, selectedSelectionID: nil)
@@ -289,11 +312,18 @@ private struct SiteHeader<Site: Website>: Component {
             Wrapper {
                 Link(url: "/") {
                     Image(
-                        url: "/Image/Mim0sasblogLogo.png",
-                        description: "Mim0sa's Blog 首页"
+                        url: "/Image/hey.png",
+                        description: ""
                     )
-                        .class("headerLogo")
+                        .class("site-brand-mark")
+                    Span(context.site.name)
+                        .class("site-brand-name")
                 }
+                .class("site-brand")
+                .attribute(
+                    named: "aria-label",
+                    value: "\(context.site.name) 首页"
+                )
 
                 Div {
                     if Site.SectionID.allCases.count > 1 {

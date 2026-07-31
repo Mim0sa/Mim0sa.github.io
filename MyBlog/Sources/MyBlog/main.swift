@@ -17,8 +17,8 @@ struct MyBlog: Website {
     }
 
     var url = URL(string: "https://mim0sa.github.io")!
-    var name = "Mim0sa's Blog"
-    var description = "记录 iOS、Swift 与游戏开发，也记录生活里的折腾。"
+    var name = "溪云初起日沉阁"
+    var description = "mimosa"
     var language: Language { .simplifiedChinese }
     var imagePath: Path? { Path("Image/hey.png") }
     var favicon: Favicon? { Favicon(path: "Image/hey.png") }

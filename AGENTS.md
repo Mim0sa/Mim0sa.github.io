@@ -3,7 +3,7 @@
 ## 项目
 
 - `Archive/` 是历史原始存档，除非明确要求，否则不要修改。
-- `MyBlog/` 是 Swift Publish 博客；内容在 `Content/`，主题在 `Sources/MyBlog/MimosaTheme.swift`，样式在 `Resources/MimosaTheme/styles.css`。
+- `MyBlog/` 是 Swift Publish 博客；内容在 `Content/`，主题在 `Sources/MyBlog/MimosaTheme.swift`，样式在 `Resources/MimosaTheme/mimosa.css`。
 - `MyBlog/Output/` 是生成产物，已忽略；不要手工编辑或提交。
 
 ## 文章
