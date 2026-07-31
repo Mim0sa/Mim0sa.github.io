@@ -1,4 +1,8 @@
-# About
+---
+title: 关于
+---
+
+>  Updated May 6, 2024.
 
 ### Mim0sa
 

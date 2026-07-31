@@ -1,0 +1,132 @@
+---
+title: 响应链及手势识别
+date: 2020-11-16 12:00
+tags: iOS, 笔记
+image: Image/posts/responder-chain-gesture-recognizers/Responder-and-Gesture.png
+---
+
+在上一篇「[事件传递及响应链](https://mim0sa.github.io/2020/11/05/事件传递及响应链.html)」中介绍了当屏幕上发生一次触摸之后，系统会如何寻找「第一响应者」，在寻找到「第一响应者」之后，如何确定「响应链」以及如何沿「响应链」传递事件。在上一篇文章的环境中，是不使用 `UIGestureRecognizer` 的。但是在我们平时的开发中想要给一个 `UIView` 加上处理事件的能力的话，使用 `UIGestureRecognizer` 及其子类比继承一个 `UIView` 的类、重写 touches 方法要方便的很多。这两种方法对事件的处理机制相互影响又有所不同。这也是本文的讨论内容：通过响应链及手势识别处理事件。
+
+![Responder Chain Z](/Image/posts/responder-chain-gesture-recognizers/Responder-and-Gesture.png)
+
+<!--more-->
+
+
+首先我们先回顾一下事件传递及响应链的大致流程：
+
+1. 通过「命中测试」来找到「第一响应者」
+2. 由「第一响应者」来确定「响应链」
+3. 将事件沿「响应链」传递
+4. 事件被某个响应者接收，或没有响应者接收从而被丢弃
+
+在步骤 3 中，事件沿「响应链」传递这个过程，就是响应者通过调用其 `next` 的 touches 系列方法来实现的。在上篇文章中我们也提到，假如我们使用 `UIControl` 等类作为响应者，这些类本身就不会调用其 `next` 的 touches 系列方法，从而实现阻断响应链的效果，也可以认为是实现接受某个事件的效果。那在这篇文章中，我们将浅析在有  `UIGestureRecognizer` 参与的情况下，事件的处理和接收是如何运作的。
+
+
+
+## 当手势识别参与响应链
+
+上篇文章中，我们只讨论了下图中蓝色部分事件沿响应链传递的流程，但实际上，同时一起发生的还有图中下半部分手势识别的部分。
+
+![Responder x Gesture](/Image/posts/responder-chain-gesture-recognizers/Responder-x-Gesture.png)
+
+从图中我们可以看到，在通过命中测试找到第一响应者之后，会将 `UITouch` 分发给 `UIResponder` 的 touches 系列方法（具体方法见上篇文章），同时也会分发给手势识别系统，让这两个处理系统同时工作。
+
+首先要注意的是，上图中蓝色部分的流程并不会只执行一次，举例来说：当我们用一根手指在一个视图上缓慢滑动时，会产生一个 `UITouch` 对象，这个 `UITouch` 对象会随着你手指的滑动，不断的更新自身，同时也不断地触发 touches 系列方法。一般来说，我们会得到如下类似的触发顺序：
+
+```
+touchesBegan     // 手指触摸屏幕
+touchesMoved     // 手指在屏幕上移动
+touchesMoved     // ...
+...
+touchesMoved     // ...
+touchesMoved     // 手指在屏幕上移动
+touchesEnded     // 手指离开屏幕
+```
+
+`UITouch` 的 `gestureRecognizers` 属性中的存储了在寻找第一响应者的过程中收集到的手势，而在不断触发 touches 系列方法的过程中，手势识别系统也在在不停的判断当前这个 `UITouch` 是否符合收集到的某个手势。
+
+**当手势识别成功：** 被触摸的那个视图，也就是第一响应者会收到 touchesCancelled 的消息，并且该视图不会再收到来自该 `UITouch` 的 touches 事件。同时也让该 `UITouch` 关联的其他手势也收到 touchesCancelled，并且之后不再收到此 `UITouch` 的 touches 事件。这样做就实现了该识别到的手势能够独占该 `UITouch`。具体表现参考如下：
+
+```
+touchesBegan     // 手指触摸屏幕
+touchesMoved     // 手指在屏幕上移动
+touchesMoved     // ...
+...
+touchesMoved     // ...
+touchesMoved     // 手指在屏幕上移动
+touchesCancelled // 手势识别成功，touches 系列方法被阻断
+// 现在手指💅并没有离开屏幕
+// 但如果继续滑动🛹的话
+// 并不会触发 touches 系列方法
+```
+
+**当手势识别未成功：** 指暂时未识别出来，不代表以后不会识别成功，不会阻断响应链。注意这里指的是未成功，并不一定是失败。在手势的内部状态中，手势大部分情况下状态是 `.possible`，指的是 `UITouch` 暂时与其不匹配，但之后可能有机会识别成功。而 `.fail` 是真的识别失败，指的是以目前的触摸情况来看已经不可能是这个手势了，并且在下个 runloop 会从 `gestureRecognizers` 中移除该手势。
+
+
+
+## 举个例子🌰
+
+下面举个简单的例子模拟一下响应链和手势的相互影响。现在用一根手指，在一个视图上触摸并滑动一段距离。下图给出了视图不带手势的情况，和带一个 `UIPanGestureRecognizer` 手势的情况。
+
+![Drag with one finger](/Image/posts/responder-chain-gesture-recognizers/Drag-with-one-finger.png)
+
+从图中我们可以看到，当不带手势的情况下，手指按下去的时候，响应者的 `touchBegan` 方法会触发，随着手指的移动，`touchMoved` 会不断触发，当手指结束移动并抬起来的时候，`touchEnded` 会触发。在这个过程中，我们接收到一直是一个不断更新的 `UITouch`。
+
+在该视图有添加一个 `UIPanGestureRecognizer` 手势的情况下，我们多了下方这一条来表示与响应链同时工作的手势识别系统，可以看到手势识别系统也是在手指按下去那一刻就开始工作的，前半段处于一直正在识别的状态。在我们拖动了很小一段距离之后（注意这时候我们的手指还没抬起）， 手势识别系统确定了该 `UITouch` 所做的动作是符合 `UIPanGestureRecognizer` 的特点的，于是给该视图的响应链发送了 `touchCancelled` 的信息，从而阻止这个 `UITouch` 继续触发这个视图的 touches 系列方法（同时也取消了别的相关手势的 touches 系列方法，图中未体现）。在这之后，被调用的只有与手势关联的 target-action 方法（也就是图中的墨绿色节点 `call PanFunction`）。
+
+##### 再进一步理解
+
+为了图片的美观和易读，在图片中我隐去了不少细节，在此列出：
+
+1. 手势识别器的状态在图中未标出：
+   * 手势在图中 `recognizing` 的橙色节点处和 `recognized` 棕色节点处都处于 `.possible` 状态
+   * 手势在图中绿色节点处的状态变化是 `.began` -> `[.changed]` -> `ended`
+2. 手势识别器不是响应者，但也有 touches 系列方法，比它所添加的视图的 touches 方法更早那么一点触发
+   * 从图中也可以看出，手势那条线上的每个节点都稍靠左一些
+   * 手势那条线上的橙、棕、墨绿色节点处也可以看做手势识别器的 touches 方法触发
+3. 更详细的触发顺序应当如下图所示
+
+![Drag with one finger with more](/Image/posts/responder-chain-gesture-recognizers/Drag-with-one-finger-with-more.png)
+
+> 手势和响应者的 touches 方法名字是一样的，都是「began」，「moved」，「ended」，「cancelled」。很容易和手势识别器的 `state` 属性搞混，`state` 属性是根据每个手势的类型（离散型/连续型）的不同，可能有 `.possible`、`.began`、`.changed`、`.ended`、`.cancelled`、`.failed` 这些状态，名字很像方法名很像但不是一回事。
+
+
+
+## 更多选择🦾
+
+我们可以通过配置手势的属性来改变它的表现，下面介绍三个常用的属性：
+
+1. `cancelsTouchesInView`：该属性默认是 `true`。顾名思义，如果设置成 `false`，当手势识别成功时，将不会发送 `touchesCancelled` 给目标视图，从而也不会打断视图本身方法的触发，最后的结果是手势和本身方法同时触发。有的时候我们不希望手势覆盖掉视图本身的方法，就可以更改这个属性来达到效果。
+2. `delaysTouchesBegan`：该属性默认是 `false`。在上个例子中我们得知，在手指触摸屏幕之后，手势处于 `.possible` 状态时，视图的 touches 方法已经开始触发了，当手势识别成功之后，才会取消视图的 touches 方法。当该属性时 `true` 时，视图的 touches 方法会被延迟到手势识别成功或者失败之后才开始。也就是说，假如设置该属性为 `true` ，在整个过程中识别手势又是成功的话，视图的 touches 系列方法将不会被触发。
+3. `delaysTouchesEnded`：该属性默认是 `true`。与上个属性类似，该属性为 `true` 时，视图的 `touchesEnded` 将会延迟大约 0.15s 触发。该属性常用于连击，比如我们需要触发一个双击手势，当我们手指离开屏幕时应当触发 `touchesEnded`，如果这时该属性为 `false`，那就不会延迟视图的 `touchesEnded` 方法，将会立马触发 ，那我们的双击就会被识别为两次单击。当该属性是 `true` 时，会延迟 `touchesEnded` 的触发，将两次单击连在一起，来正常识别这种双击手势。
+
+
+
+## UIControl 与手势识别
+
+由于 `UIControl` 接收 target-action 方法的方式是在其 touches 方法中识别、接收、处理，而手势的 touches 方法一定比其所在视图的 touches 方法早触发。再根据上文的描述的触发规则，可以得到的结论是：对于自定义的 `UIControl` 来说，手势识别的优先级比 `UIControl` 自身处理事件的优先级高。
+
+举个例子来说：当我们给一个 `UIControl` 添加了一个 `.touchupInside` 的方法，又添加了一个 `UITapGestureRecognizer` 之后。点击这个 `UIControl`，会看到与手势关联的方法触发了，并且给 `UIControl` 发送了 `touchCancelled`，导致其自身的处理时间机制被中断，从而也没能触发那个 `.touchupInside` 的方法。
+
+同时这样的机制可能会导致一个问题：当我们给一个已经拥有点击手势的视图，添加一个 `UIControl` 作为子视图，那么我们无论怎么给该 `UIControl` 添加点击类型的 target-action 方法，最后的结果都是触发其父视图的手势（因为在命中测试的过程中收集到了这个手势），并且中断 `UIControl` 的事件处理，导致添加的 target-action 方法永远无法触发。
+
+那其实🍎已经给我们做了一个[解决方案](https://developer.apple.com/documentation/uikit/touches_presses_and_gestures/coordinating_multiple_gesture_recognizers/attaching_gesture_recognizers_to_uikit_controls)，`UIKit` 对部分控件（同时也是 `UIControl` 的子类）做了特殊处理，当这些控件的父视图上有与该控件冲突功能的手势时，会优先触发控件自身的方法，不会触发其父视图上的那个手势。具体的控件和冲突触发方式如下图：
+
+![Confict Controls](/Image/posts/responder-chain-gesture-recognizers/Confict-Controls.png)
+
+也举个例子来说：当我们给一个已经拥有点击手势的视图，添加一个 `UIButton` 作为子视图，并且给按钮添加点击类型的 target-action 方法，那么当点击按钮时，按钮的 target-action 方法会触发，手势的方法会被忽略。
+
+并且文档中也提到了，如果不想要这种情况发生，那就应当把手势添加到目标控件上（因为手势比控件更早识别到事件，也就是上文提到的给 `UIControl` 添加了 `.touchupInside` 方法的例子），这样的话生效的就是手势了。
+
+
+
+## 总结
+
+总的来说，手势识别器在大多数情况下，识别屏幕触摸事件的优先级，比控件本身的方法的优先级高。
+
+所以在开发的过程中，注意不要让手势覆盖控件本身的方法实现。同时也要理解默认情况下，手势识别在一开始实际上并不会阻止控件自身的 touches 系列方法，而是在之后的某个时机去取消。另外在 `UIKit` 中，也对部分情况做了特殊处理，让 `UIKit` 控件有机会跳过父视图的手势识别，去获得事件的控制权。
+
+> 这篇文章算是边思考边写，所以有些啰嗦🤪，见谅。
+
+
+

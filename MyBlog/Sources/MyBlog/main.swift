@@ -1,4 +1,5 @@
 import Foundation
+import HighlightJSPublishPlugin
 import Publish
 import Plot
 
@@ -15,13 +16,20 @@ struct MyBlog: Website {
         // Add any site-specific metadata that you want to use here.
     }
 
-    // Update these properties to configure your website:
-    var url = URL(string: "https://your-website-url.com")!
-    var name = "Mimosa's Blog"
-    var description = "A description of Mimosa's Blog"
-    var language: Language { .english }
-    var imagePath: Path? { Path("Image") }
+    var url = URL(string: "https://mim0sa.github.io")!
+    var name = "Mim0sa's Blog"
+    var description = "记录 iOS、Swift 与游戏开发，也记录生活里的折腾。"
+    var language: Language { .simplifiedChinese }
+    var imagePath: Path? { Path("Image/hey.png") }
+    var favicon: Favicon? { Favicon(path: "Image/hey.png") }
+    var tagHTMLConfig: TagHTMLConfiguration? { nil }
 }
 
-// This will generate your website using the built-in Foundation theme:
-try MyBlog().publish(withTheme: .mimosa)
+try MyBlog().publish(
+    withTheme: .mimosa,
+    additionalSteps: [
+        .renderMarkdownAfterMoreSeparators(),
+        .addPostPaginationPages()
+    ],
+    plugins: [.highlightJS()]
+)

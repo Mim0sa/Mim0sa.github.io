@@ -1,1 +1,3 @@
-# Welcome Welcome Welcome to MyBlog!
+---
+title: Mim0sa's Blog
+---

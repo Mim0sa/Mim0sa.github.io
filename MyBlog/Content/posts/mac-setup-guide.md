@@ -1,0 +1,104 @@
+---
+title: 我的 Mac 开荒指南
+date: 2025-11-02 12:00
+tags: 生活
+---
+
+昨天我的电脑遇到了这个问题，重启之后显示：所选磁盘上的 MacOS 版本需要重新安装。
+
+这个的意思就是我的系统出现了点问题，经过多次尝试，意识到这个问题似乎是无法靠重启解决的。由于我已经是 Tahoe(26) 的版本了，无法通过直接重新安装新系统 Sequoia 来降级，正常的方案应该是备份磁盘里面的内容，然后抹掉磁盘，安装 Sequoia，升级到 Tahoe(26)，然后再用备份还原；但是我觉得有点麻烦，想着电脑里也没啥东西，索性直接抹掉了磁盘，放弃磁盘里面所有数据，重新安装了新系统。
+
+这篇文章主要为我自己记录一下对 Mac 开荒的过程，方便下次买新电脑或者电脑再次坏掉的时候使用。
+
+<!--more-->
+
+
+> 补充：在我尝试升级到 Tahoe(26) 的时候，老是报错升级失败，研究了一会错误报告，解决方案居然是拔掉鼠标和键盘的连接。
+
+> 再补充：在这次问题之后，我再一次在重启电脑的时候遇到了上述问题，经过排查，发现罪魁祸首是键盘的 2.4G 接收器，如果不插，就一切正常，但是插上就是即刻死机🤔
+
+## 基础内容
+
+按顺序安装以下内容：
+
+##### Xcode + Platform Support
+
+可以用 Xcodes，但如果是家里用的，还是从 AppStore 下载比较省心
+
+##### 🪜软件和订阅
+
+这个需要从别的地方传过来
+
+##### PasteNow
+
+存了很多 key 在里面，用 iCloud 同步下来
+
+##### Chrome
+
+包含了大部分服务的账号密码
+
+##### brew
+
+https://brew.sh/
+
+##### nvm
+
+```bash
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash
+```
+
+##### rbenv（不要用 rvm，rvm 好麻烦）
+
+```bash
+brew install openssl@3
+brew install rbenv ruby-build
+echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.zshrc
+echo 'eval "$(rbenv init -)"' >> ~/.zshrc
+source ~/.zshrc or 重启 shell
+RUBY_CONFIGURE_OPTS="--with-openssl-dir=/opt/homebrew/opt/openssl@3" rbenv install 3.3.1
+rbenv global 3.3.1
+```
+
+##### CocoaPods
+
+```bash
+gem sources --remove https://rubygems.org/
+gem sources --add https://gems.ruby-china.com/
+sudo gem install -n /usr/local/bin cocoapods
+```
+
+## 常用软件
+
+* 终端：iTerm2, Warp, Ghostty
+* WeChat
+* Github Desktop
+* The Unarchiver
+* VSCode
+* Github Copilot for Xcode
+* Claude
+* Codex
+* Run Cat
+* 音乐软件
+* OK JSON
+* GIPHY
+* Pixeur
+* DeepL
+* Android Studio
+  * 神秘指令：open -a "Android Studio"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
