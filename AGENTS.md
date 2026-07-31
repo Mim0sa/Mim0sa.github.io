@@ -30,4 +30,4 @@ tags: iOS, Swift
 - 推送 `master` 后，[Pages 工作流](.github/workflows/pages.yml) 会执行 Release 构建并发布到 `https://mim0sa.github.io`。
 - 发布源码到 `origin`；不要手动发布 `Output/`。
 
-保持 Mim0sa 主题克制、适合长文阅读，并兼顾明暗模式、响应式布局与可访问性。
+保持博客主题简约克制、适合长文阅读，并兼顾明暗模式、响应式布局与可访问性。
