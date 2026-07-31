@@ -86,18 +86,20 @@ private struct FoundationHTMLFactory<Site: Website>: HTMLFactory {
             sortedBy: \.date,
             order: .descending
         )
+        let postsSectionID = Site.SectionID.allCases.first {
+            $0.rawValue == MyBlog.SectionID.posts.rawValue
+        }
 
         return HTML(
             .lang(context.site.language),
             .head(for: index, on: context.site),
             .body {
                 ThemeScript()
-                SiteHeader(context: context, selectedSelectionID: nil)
+                SiteHeader(
+                    context: context,
+                    selectedSelectionID: postsSectionID
+                )
                 Wrapper {
-                    H1(index.title)
-                    Paragraph(context.site.description)
-                        .class("description")
-                    H2("最新文章")
                     ItemList(
                         items: itemsForPage(1, from: items)
                     )
