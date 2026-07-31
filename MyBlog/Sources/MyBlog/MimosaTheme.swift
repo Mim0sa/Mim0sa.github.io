@@ -137,9 +137,6 @@ private struct FoundationHTMLFactory<Site: Website>: HTMLFactory {
                 ThemeScript()
                 SiteHeader(context: context, selectedSelectionID: section.id)
                 Wrapper {
-                    if sectionID != .posts {
-                        H1(section.title)
-                    }
                     if !section.body.isEmpty {
                         Div(section.body)
                             .class(

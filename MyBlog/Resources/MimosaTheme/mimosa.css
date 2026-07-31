@@ -179,10 +179,10 @@ header a {
 
 .site-brand-name {
     font-family: var(--font-sans);
-    font-size: 1.18rem;
-    font-weight: 500;
-    letter-spacing: 0.04em;
-    line-height: 1;
+    font-size: 1.2rem;
+    font-weight: 400;
+    letter-spacing: normal;
+    line-height: 1.6;
     white-space: nowrap;
 }
 
@@ -656,6 +656,10 @@ p {
     margin-bottom: 52px;
 }
 
+.about-content {
+    margin-top: 34px;
+}
+
 .content > :first-child {
     margin-top: 0;
 }
@@ -847,8 +851,8 @@ footer p {
     }
 
     .site-brand-name {
-        font-size: 0.96rem;
-        letter-spacing: 0.04em;
+        font-size: 1.2rem;
+        letter-spacing: normal;
     }
 
     .header-actions {
@@ -970,8 +974,8 @@ footer p {
     }
 
     .site-brand-name {
-        font-size: 0.88rem;
-        letter-spacing: 0.01em;
+        font-size: 1.2rem;
+        letter-spacing: normal;
     }
 
     .header-actions {
