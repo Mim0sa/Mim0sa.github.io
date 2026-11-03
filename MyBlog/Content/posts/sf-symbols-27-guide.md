@@ -8,7 +8,9 @@ typora-copy-images-to: ../../Resources/Image/posts/sf-symbols-27-guide
 
 本文将从 SF Symbols 的特性切入，讨论 SF Symbols 这款由系统字体支持的符号库有哪些特点以及最常见的使用方式，也会简单提一下近期更新和最新特性。
 
-SF Symbols 在 2025 年延续了既有框架，进一步增强了绘制和动画能力。到了 WWDC26，已经没有自己的 WWDC session。同时，在最新的 SF Symbols 网站中，我注意到现在的正式命名随着 OS 的更新也变成了 SF Symbols 27，所以本文是一份迟到的 SF Symbols 27 使用指南。除了以往的内容外，新增了 SF Symbols 7(2025) 和 SF Symbols 27(2026) 的内容。
+SF Symbols 在 2025 年延续了既有框架，进一步增强了绘制和动画能力；到了 WWDC26，更新内容也比较少，已经没有独立的 session 了🥲。
+
+在最新的 SF Symbols 网站中，我注意到现在的正式命名随着 OS 的更新也变成了 SF Symbols 27，所以本文是一份迟到的 SF Symbols 27 使用指南。除了以往的内容外，新增了 SF Symbols 7(2025) 和 SF Symbols 27(2026) 的内容。
 
 本文基于个人理解、往期 session 和 WWDC 2025 [What’s new in SF Symbols 7](https://developer.apple.com/videos/play/wwdc2025/337/) 梳理。
 
@@ -112,7 +114,7 @@ imageView.preferredSymbolConfiguration = config
 
 #### 调色盘模式 Palette
 
-调色盘模式和分层模式很像，和分层模式一样是，调色盘模式也会对符号的各个层级进行上色。不同的是，调色盘模式允许你自由的分别设置各个层级的颜色。
+调色盘模式和分层模式很像，也会对符号的各个层级进行上色。不同的是，调色盘模式允许你分别设置各个层级的颜色。
 
 ```swift
 // SwiftUI
@@ -569,3 +571,16 @@ SF Symbols App 的版本、符号本身的可用版本和功能 API 的系统要
 这里的版本指功能 API，具体符号及其效果支持仍需单独确认。使用前可以在 SF Symbols App 的信息面板中查看符号的可用版本；兼容旧系统时，通过 `#available` 判断新 API，并为不可用的符号准备旧符号或图片作为替代。
 
 另外，同一个符号在不同版本中也可能使用不同的名称。例如麦克风符号，旧名称是 `mic`，新名称 `microphone` 从 iOS 18 / macOS 15 开始可用，兼容更早的系统时需要使用 `mic`。如果从最新版 SF Symbols App 复制的名称在旧系统上无法显示，不一定是这个符号不存在，也可能只是名称不同，需要核对目标系统支持的旧名称。更多说明可以参考[官方文档](https://developer.apple.com/documentation/uikit/configuring-and-displaying-symbol-images-in-your-ui)。
+
+## 定制符号
+
+当系统符号不能满足需求时，我们也可以制作自己的符号。往年的 WWDC session 已经陆续介绍了不少相关内容，我在之前的文章中也做过整理：
+
+* WWDC21：导出和编辑 SVG 模板，利用静态模板或可变模板定制符号；可变模板只需设计三个基础规格，就能通过插值生成其余字重和比例。详见[《定制属于你的 Symbols》](https://mim0sa.github.io/posts/custom-symbols)。
+* WWDC22：整理路径与图层，为不同渲染模式设置颜色层级和 Erase 镂空，并选择参与可变颜色的图层。详见[《SF Symbols 4 使用指南》](https://mim0sa.github.io/posts/sf-symbols-4-guide)。
+* WWDC23：标记参与 Pulse 的图层，通过分组调整动画的表现，以及利用 Symbol Components 组合自定义符号。详见[《SF Symbols 5 使用指南》](https://mim0sa.github.io/posts/sf-symbols-5-guide)。
+* WWDC24：调整 Rotate、Wiggle 的默认方向和 Variable Color 的 loop 类型，以及指定旋转图层、调整旋转锚点。详见[《SF Symbols 6 使用指南》](https://mim0sa.github.io/posts/sf-symbols-6-guide)。
+
+到了 WWDC25，[What’s new in SF Symbols 7](https://developer.apple.com/videos/play/wwdc2025/337/?time=482) 中定制符号的重点变成了 Draw 标注：在路径上放置引导点，确定起点、终点和绘制方向，再处理转角、双向绘制、自适应端点，以及让箭头等附属图形沿路径运动的 attachment。标注从 Regular 字重开始，系统会自动将引导点插值到 Ultralight 和 Black，再按需微调，保证不同字重和比例下的绘制效果。完成之后，还可以选择哪些图层参与可变绘制，让自定义符号也能表达进度。
+
+不过，真正需要从头设计符号、再逐层调整动画的受众还是比较小，这里就不展开具体操作了。有需要的小伙伴可以结合上面的旧文，以及 WWDC25 从 8:02 开始的定制符号演示来实践。
