@@ -8,23 +8,21 @@ typora-copy-images-to: ../../Resources/Image/posts/sf-symbols-27-guide
 
 本文将从 SF Symbols 的特性切入，讨论 SF Symbols 这款由系统字体支持的符号库有哪些特点以及最常见的使用方式，也会简单提一下近期更新和最新特性。
 
-SF Symbols 在 2025 年延续了既有框架，进一步增强了绘制和动画能力；到了 WWDC26，更新内容也比较少，已经没有独立的 session 了🥲。
-
-在最新的 SF Symbols 网站中，我注意到现在的正式命名随着 OS 的更新也变成了 SF Symbols 27，所以本文是一份迟到的 SF Symbols 27 使用指南。除了以往的内容外，新增了 SF Symbols 7(2025) 和 SF Symbols 27(2026) 的内容。
+SF Symbols 在 2025 年延续了既有框架，进一步增强了绘制和动画能力；到了 WWDC26，已经没有独立的 session 了🥲，更新的内容比较少。在最新的 SF Symbols 网站中，我注意到现在的正式命名随着 OS 的更新也变成了 SF Symbols 27，所以本文是一份迟到的 SF Symbols 27 使用指南。除了以往的内容外，新增了 SF Symbols 7(2025) 和 SF Symbols 27(2026) 的内容。
 
 本文基于个人理解、往期 session 和 WWDC 2025 [What’s new in SF Symbols 7](https://developer.apple.com/videos/play/wwdc2025/337/) 梳理。
 
-前情提要：
+![WWDC24History](/Image/posts/sf-symbols-27-guide/WWDC2526History.png)
+
+<!--more-->
+
+往期指南：
 
 * [SF Symbols 6 使用指南](https://mim0sa.github.io/posts/sf-symbols-6-guide)
 * [SF Symbols 5 使用指南](https://mim0sa.github.io/posts/sf-symbols-5-guide)
 * [SF Symbols 4 使用指南](https://mim0sa.github.io/posts/sf-symbols-4-guide)
 * [定制属于你的 Symbols](https://mim0sa.github.io/posts/custom-symbols)
 * [SF Symbols 3 使用指南](https://mim0sa.github.io/posts/sf-symbols-3-guide)
-
-![WWDC24History](/Image/posts/sf-symbols-27-guide/WWDC2526History.png)
-
-<!--more-->
 
 ## 什么是 SF Symbols
 
