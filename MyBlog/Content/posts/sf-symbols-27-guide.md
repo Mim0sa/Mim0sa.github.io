@@ -233,7 +233,7 @@ Image(systemName: "checkmark.seal")
 imgView.addSymbolEffect(.bounce.up)
 ```
 
-![Bounce](/Image/posts/sf-symbols-27-guide/BounceAnimation.gif)
+![Bounce](/Image/posts/sf-symbols-27-guide/Bounce-preview.gif)
 
 #### Scale
 
@@ -246,7 +246,7 @@ Image(systemName: "folder.badge.plus")
 isActive.toggle()
 ```
 
-![Scale](/Image/posts/sf-symbols-27-guide/Scale.gif)
+![Scale](/Image/posts/sf-symbols-27-guide/Scale-preview.gif)
 
 #### Wiggle
 
@@ -261,7 +261,7 @@ Image(systemName: "iphone.gen3.radiowaves.left.and.right")
                   options: .repeat(.periodic(delay: 0.5)))
 ```
 
-![WiggleAnimation](/Image/posts/sf-symbols-27-guide/WiggleAnimation.gif)
+![WiggleAnimation](/Image/posts/sf-symbols-27-guide/Wiggle-preview.gif)
 
 #### Rotate
 
@@ -274,7 +274,7 @@ Image(systemName: "fan.desk")
     .symbolEffect(.rotate.counterClockwise, options: .repeat(.continuous))
 ```
 
-![RotateAnimation](/Image/posts/sf-symbols-27-guide/RotateAnimation.gif)
+![RotateAnimation](/Image/posts/sf-symbols-27-guide/Rotate-preview.gif)
 
 在默认的情况下是会选择 `.byLayer` 执行动画，例如在上图的电风扇符号中，只有扇叶层会旋转，这是 SF Symbols 预先设计好的。如果你手动指定动画按照 `.wholeSymbol` 执行，那整个电风扇符号（连同风扇底座）都会旋转起来，好奇的可以亲手实践一下🐶。
 
@@ -291,9 +291,9 @@ Image(systemName: "rainbow")
     .symbolEffect(.variableColor.iterative.hideInactiveLayers.nonReversing)
 ```
 
-![ShowVariableColorOptions](/Image/posts/sf-symbols-27-guide/VariableColorAnimation.gif)
+![ShowVariableColorOptions](/Image/posts/sf-symbols-27-guide/VariableColor-preview.gif)
 
-另外在这次更新后，`Variable Color` 的动画分为 open loop 和 closed loop，对应下图左和右，closed loop 符号的头尾是相连的，现在当 closed loop 的符号执行动画时，动画执行完一圈之后不会有短暂停止，会无缝衔接下一圈动画。后文也会提到在自定义符号时，可以修改符号的 loop 类型。
+`Variable Color` 的动画分为 open loop 和 closed loop，对应下图左和右，closed loop 符号的头尾是相连的，当 closed loop 的符号执行动画时，动画执行完一圈之后不会有短暂停止，会无缝衔接下一圈动画。在自定义符号时，可以修改符号的 loop 类型。
 
 ```swift
 Image(systemName: "waveform")
@@ -302,7 +302,7 @@ Image(systemName: "progress.indicator")
     .symbolEffect(.variableColor.iterative, options: .repeat(.continuous))
 ```
 
-![VariableColorLoopAnimation](/Image/posts/sf-symbols-27-guide/VariableColorLoopAnimation.gif)
+![VariableColorLoopAnimation](/Image/posts/sf-symbols-27-guide/VariableColorLoop-preview.gif)
 
 #### Pulse
 
@@ -315,7 +315,7 @@ Image(systemName: "globe")
     .symbolEffect(.pulse)
 ```
 
-![Pulse](/Image/posts/sf-symbols-27-guide/PulseAnimation.gif)
+![Pulse](/Image/posts/sf-symbols-27-guide/Pulse-preview.gif)
 
 #### Breathe
 
@@ -328,7 +328,7 @@ Image(systemName: "lungs")
     .symbolEffect(.breathe)
 ```
 
-![BreatheAnimation](/Image/posts/sf-symbols-27-guide/BreatheAnimation.gif)
+![BreatheAnimation](/Image/posts/sf-symbols-27-guide/Breathe-preview.gif)
 
 #### Appear / Disappear
 
