@@ -8,7 +8,7 @@ typora-copy-images-to: ../../Resources/Image/posts/sf-symbols-27-guide
 
 本文将从 SF Symbols 的特性切入，讨论 SF Symbols 这款由系统字体支持的符号库有哪些特点以及最常见的使用方式，也会简单提一下近期更新和最新特性。
 
-SF Symbols 在 2025 和 2026 没有太大的更新，甚至在 WWDC26  中已经没有自己的 WWDC session。同时，在最新的 SF Symbols 网站中，我注意到现在的正式命名随着 OS 的更新也变成了 SF Symbols 27，所以本文是一份迟到的 SF Symbols 27 使用指南。除了以往的内容外，新增了 SF Symbols 7(2025) 和 SF Symbols 27(2026) 的内容。
+SF Symbols 在 2025 年延续了既有框架，进一步增强了绘制和动画能力。到了 WWDC26，已经没有自己的 WWDC session。同时，在最新的 SF Symbols 网站中，我注意到现在的正式命名随着 OS 的更新也变成了 SF Symbols 27，所以本文是一份迟到的 SF Symbols 27 使用指南。除了以往的内容外，新增了 SF Symbols 7(2025) 和 SF Symbols 27(2026) 的内容。
 
 本文基于个人理解、往期 session 和 WWDC 2025 [What’s new in SF Symbols 7](https://developer.apple.com/videos/play/wwdc2025/337/) 梳理。
 
@@ -51,7 +51,7 @@ SF Symbols 在 2025 和 2026 没有太大的更新，甚至在 WWDC26  中已经
 
 ### 如何使用符号
 
-使用 SF Symbols 非常简单，可以先去 SF Symbols App 中找到你喜欢的符号，然后复制这个符号的名字，将它粘贴到代码中即可。对于 SF Symbols 来说，我们可以调节他的字号、字重和比例来满足搭配不同类型文字的需求，和系统字体一样，SF Symbols 有有 9 种字重和 3 种比例来满足你不同场景下的使用需求。你可以利用系统框架 UIKit、AppKit 或者 SwiftUI 中的组件来实现。
+使用 SF Symbols 非常简单，可以先去 SF Symbols App 中找到你喜欢的符号，然后复制这个符号的名字，将它粘贴到代码中即可。对于 SF Symbols 来说，我们可以调节他的字号、字重和比例来满足搭配不同类型文字的需求，和系统字体一样，SF Symbols 有 9 种字重和 3 种比例来满足你不同场景下的使用需求。你可以利用系统框架 UIKit、AppKit 或者 SwiftUI 中的组件来实现。
 
 ![SF Symbols 的三种比例与九种字重](/Image/posts/sf-symbols-27-guide/new3x9.png)
 
@@ -69,17 +69,19 @@ SF Symbols 可以自定义颜色和透明度。想要使用这些带有自定义
 
 #### 单色模式 Monochrome
 
-设置单色模式会让符号变成纯色。要设置单色模式，我们只需要直接设置视图的 tint 等属性就可以完成。
+设置单色模式会让符号变成纯色。要注意的是，设置视图的 tint 等属性只是改变颜色，并不等于指定了单色模式，因为有些符号默认使用分层模式。如果你希望符号保持单色，需要先显式指定单色模式，再设置你想要的颜色。
 
 ```swift
 // SwiftUI
 Image(systemName: "battery.100percent.bolt")
     .foregroundStyle(.yellow)
+    .symbolRenderingMode(.monochrome)
 
 // UIKit
 let image = UIImage(systemName: "battery.100percent.bolt")
 imageView.image = image
 imageView.tintColor = .yellow
+imageView.preferredSymbolConfiguration = .preferringMonochrome()
 ```
 
 ![Monochrome](/Image/posts/sf-symbols-27-guide/Monochrome.png)
@@ -121,12 +123,12 @@ Image(systemName: "battery.100percent.bolt")
 let image = UIImage(systemName: "battery.100percent.bolt")
 imageView.image = image
 let config = UIImage.SymbolConfiguration(paletteColors: [.red, .orange, .yellow])
-imgView.preferredSymbolConfiguration = config
+imageView.preferredSymbolConfiguration = config
 ```
 
 ![Palette](/Image/posts/sf-symbols-27-guide/Palette.png)
 
-#### 多色模式 Muticolor
+#### 多色模式 Multicolor
 
 在 SF Symbols 中，有许多符号的意象在现实生活中已经深入人心，比如：⚠️警告的符号应该是黄色的，🌈彩虹符号应该是彩色的。所以 SF Symbols 也提供了与现实世界色彩相契合的颜色模式：多色渲染模式。
 
@@ -140,10 +142,10 @@ Image(systemName: "battery.100percent.bolt")
 // UIKit
 let image = UIImage(systemName: "battery.100percent.bolt")
 imageView.image = image
-imgView.preferredSymbolConfiguration = .preferringMulticolor()
+imageView.preferredSymbolConfiguration = .preferringMulticolor()
 ```
 
-![Muticolor](/Image/posts/sf-symbols-27-guide/Muticolor.png)
+![Multicolor](/Image/posts/sf-symbols-27-guide/Muticolor.png)
 
 #### 自动渲染模式 Automatic
 
@@ -169,27 +171,40 @@ Image(systemName: "pc")
 
 在 SF Symbol App 中的 `Variable` 目录中找到所有有可变符号，可以通过右侧面板的滑块来查看不同百分比程度下可变符号的形态。可变符号分为可变颜色和可变绘制，可变颜色是离散的，视觉效果是一块一块亮起来的感觉，可变绘制是连续的，像进度条那样流畅变化。
 
-> 在 SF Symbols App 中，你可以看到除了 draw 和 color 之外，还有一个 default mode；这是一个误导，实际上在 sdk 中并没有类似 auto/default 的自动选择模式，如果一个符号只适用于可变绘制，而你没有显式指定 symbolVariableValueMode 为 draw，那么你将看不到任何效果，因为默认的 mode 就是 color。
+> 在 SF Symbols App 中，你可以看到除了 draw 和 color 之外，还有一个 default mode。在 UIKit 和 AppKit 中，对应的是 `.automatic`，系统会根据符号自动选择可变模式。SwiftUI 虽然没有 `.automatic`，但 `symbolVariableValueMode` 接受 `nil`，[文档](https://developer.apple.com/documentation/swiftui/environmentvalues/symbolvariablevaluemode)将它描述为自动选择模式。
+>
+> 不过这里有一个实际表现上的差异：对于本次测试的、只支持可变绘制的符号，在 iOS 27.0 和 macOS 27.0.1 上，UIKit 和 AppKit 中，使用 `.automatic` 或者不指定模式，都可以随着 `variableValue` 的变化显示绘制进度；但在 SwiftUI 中，传入 `nil` 或者不指定模式，符号都不会随数值变化，只有显式指定 `.draw` 才有效。这与文档描述不一致，应该是 SwiftUI 当前版本的一个 bug。所以，如果你需要在 SwiftUI 中使用可变绘制，建议显式指定 `.symbolVariableValueMode(.draw)`。
 
 ![可变颜色（上排）与可变绘制（下排）演示](/Image/posts/sf-symbols-27-guide/VariableSymbols.gif)
 
-在代码中，我们只需要在初始化符号时增加一个 `Double` 类型的 `variableValue` 参数，就可以实现可变颜色在不同程度下的不同形态。假如你的可变符号（例如上图 Wi-Fi 符号）可变颜色部分有三层，那么这个 `variableValue` 的将会三等分判定，0.2 和 0.5 的效果将会不一样，但是 0.1 和 0.2 的表现是一样的；如果是可变绘制，那么将根据 `variableValue` 的变化而实时变动。
+在代码中，我们在初始化符号时增加一个 `Double` 类型的 `variableValue` 参数，就可以实现可变颜色在不同程度下的不同形态。假如你的可变符号（例如上图 Wi-Fi 符号）可变颜色部分有三层，那么这个 `variableValue` 的将会三等分判定，0.2 和 0.5 的效果将会不一样，但是 0.1 和 0.2 的表现是一样的；如果是可变绘制，那么将根据 `variableValue` 的变化而实时变动。
 
 ```swift
 // SwiftUI
 Image(systemName: "wifi", variableValue: 0.2)
-		.symbolVariableValueMode(.color) // default mode
+		.symbolVariableValueMode(.color) // 显式使用可变颜色
 Image(systemName: "thermometer.sun", variableValue: 0.5)
 		.symbolVariableValueMode(.draw)
 
-// AppKit
-let img = NSImage(symbolName: "wifi", variableValue: 0.2)
-img.symbolConfiguration = NSImage.SymbolConfiguration(variableValueMode: .color) // default mode
-let img = NSImage(symbolName: "thermometer.sun", variableValue: 0.5)
-img.symbolConfiguration = NSImage.SymbolConfiguration(variableValueMode: .draw)
+// AppKit（macOS 26+）
+let wifiImage = NSImage(
+    systemSymbolName: "wifi",
+    variableValue: 0.2,
+    accessibilityDescription: nil
+)?.withSymbolConfiguration(
+    NSImage.SymbolConfiguration(variableValueMode: .color) // 显式使用可变颜色
+)
+
+let thermometerImage = NSImage(
+    systemSymbolName: "thermometer.sun",
+    variableValue: 0.5,
+    accessibilityDescription: nil
+)?.withSymbolConfiguration(
+    NSImage.SymbolConfiguration(variableValueMode: .draw)
+)
 ```
 
-> 注意，可变符号的可变颜色部分也是一种分层的表现，但这里的分层和上文提到的渲染模式使用的分层没有关系且可以不同的。一个符号可以在渲染模式中只分两层，但在可变颜色的分层中分为三层或者更多。
+> 注意，可变符号的可变颜色部分也是一种分层的表现，但这里的分层和上文提到的渲染模式使用的分层没有关系且可以不同。一个符号可以在渲染模式中只分两层，但在可变颜色的分层中分为三层或者更多。
 >
 > 例如上图中第二个符号 `speaker.wave.3.fill`，在分层渲染模式中，可以看到左侧的喇叭是一层，右侧三条 wave 整体是第二层，没有第三层。但它的可变颜色分为三层，集中在右侧的三条 wave 上，左侧的喇叭图形不参与可变颜色的逻辑。
 
@@ -199,7 +214,7 @@ img.symbolConfiguration = NSImage.SymbolConfiguration(variableValueMode: .draw)
 
 ### 认识 Animation
 
-SF Symbols 有执行动画的能力，这是一种给你的界面增添活力、动感的方式，你可以从一系列不同的可配置的动画预设中选择你想要的来使用。这些动画是所有符号通用的，所有的 SF Symbols 在所有的比例字重、渲染模式下，都可以良好的运作动画，这让符号们的动画既易于定制也使用简单。
+SF Symbols 有执行动画的能力，这是一种给你的界面增添活力、动感的方式，你可以从一系列不同的可配置的动画预设中选择你想要的来使用。这些动画支持不同的比例、字重和渲染模式，这让符号们的动画既易于定制也使用简单。具体的动画表现也取决于符号本身的支持情况，例如 `Variable Color` 需要有参与可变颜色的图层，`DrawOn` 和 `DrawOff` 的路径绘制则需要相应的绘制标注。
 
 ![SF Symbols 动画效果演示](/Image/posts/sf-symbols-27-guide/sf-symbols-animation.gif)
 
@@ -212,13 +227,13 @@ SF Symbols 有执行动画的能力，这是一种给你的界面增添活力、
 * `DrawOn`, `DrawOff`（SF Symbols 7 新增）
 * `Replace`
 
-所有的动画效果，在 sdk 中我们称之为 `SymbolEffect`。接下来我会通过代码来展示每个动画的运作机制和特点，在这之前，可以先打开 SF Symbols App，在这里看到所有符号的所有动画的预览，你也可以通过调节选项来预览不同的动画效果组合，以及直接复制你调整好的动画代码。
+大部分动画效果，在 sdk 中我们称之为 `SymbolEffect`。接下来我会通过代码来展示每个动画的运作机制和特点，在这之前，可以先打开 SF Symbols App，在这里看到所有符号的所有动画的预览，你也可以通过调节选项来预览不同的动画效果组合，以及直接复制你调整好的动画代码。
 
 #### Bounce
 
-`Bounce` 是一个非常有动感的动画，常常在强调某个区域或者按钮的时候用到这个效果，`Bounce` 动画默认会将符号各个图层单独在不同时间段进行动画，会有一种弹跳的动感。
+`Bounce` 是一个非常有动感的动画，常常在强调某个区域或者按钮的时候用到这个效果，动画默认使用 `.byLayer`，会将符号各个图层单独在不同时间段进行动画，会有一种弹跳的动感。
 
-如果你想要整个符号所有图层同时进行动画，需要在代码中使用 `.wholeSymbol` 特别指定一下，同理，接下来的要介绍的所有动画（除了 `Variable Color` 动画）也都有这个特性，后文就不再单独介绍这个特性了。
+如果你想要整个符号所有图层同时进行动画，需要在代码中使用 `.wholeSymbol` 特别指定一下，同理，接下来的要介绍的所有动画（除了 `Variable Color` 动画）也都有这个特点，后文就不再单独介绍这个特性了。
 
 ```swift
 // SwiftUI
@@ -282,7 +297,7 @@ Image(systemName: "fan.desk")
 
 我们也可以为有可变颜色特性的符号做动画，而且动画顺序将会遵循可变颜色的层级顺序来实现。要注意的是，在可变颜色中，如果设置部分图层完全不参与可变颜色的变化，那么在可变颜色动画中，这部分图层也完全不会参与动画。另外，为没有可变颜色特性的符号做可变颜色动画时将不会有动画效果。
 
-`Variable Color` 的动画比较特别，除了可以选择按图层动画或者整体动画之外，他还可以选择动画过程中是否要把图层隐藏、动画模式是累加还是迭代、一次动画结束之后要不要反向再做一次动画等。这些动画都可以在 SF Symbols App 中任意组合预览。
+`Variable Color` 的动画比较特别，你可以选择动画过程中要把未激活的图层隐藏还是降低不透明度、动画模式是累加还是迭代、一次动画结束之后要不要反向再做一次动画等。这些动画都可以在 SF Symbols App 中任意组合预览。
 
 ```swift
 Image(systemName: "rainbow")
@@ -306,7 +321,7 @@ Image(systemName: "progress.indicator")
 
 #### Pulse
 
-`Pulse` 是一种闪烁效果，可以用来表示一种正在进行中的状态，例如我们下左图这个符号可以用来表示正在分享屏幕。要注意的是，和 Rotate 一样，该动画默认来说会按图层执行动画，有的部分符号预设了需要强调闪烁的部分（如下左图），所以在执行动画时，会有部分图层不闪烁。
+`Pulse` 是一种闪烁效果，可以用来表示一种正在进行中的状态，例如我们下左图这个符号可以用来表示正在分享屏幕。要注意的是，和 `Rotate` 一样，该动画默认来说会按图层执行动画，有的部分符号预设了需要强调闪烁的部分（如下左图），所以在执行动画时，会有部分图层不闪烁。
 
 ```swift
 Image(systemName: "rectangle.inset.filled.and.person.filled")
@@ -319,7 +334,7 @@ Image(systemName: "globe")
 
 #### Breathe
 
-`Breathe` 是一种和 `Pulse` 有一些类似的动画，更适合用于更活泼、更有生命力的场景。除了像 `Pulse` 一样会按照图层闪烁之外，`Breathe` 还会像 `Bounce` 一样依照图层缓慢移动。你可以手动更改该符号在呼吸时需要不要闪烁。
+`Breathe` 是一种和 `Pulse` 有一些类似的动画，更适合用于更活泼、更有生命力的场景。`Breathe` 通过缓慢放大和缩小产生呼吸感，也可以像 `Pulse` 一样叠加不透明度变化。你可以手动选择该符号在呼吸时要不要闪烁，例如使用 `.plain` 就不会叠加闪烁效果。
 
 ```swift
 Image(systemName: "leaf")
@@ -434,7 +449,7 @@ Image(systemName: isActive ? "video.fill" : "video.slash.fill")
 
 // UIKit
 let image = UIImage(systemName: "video.slash.fill")
-imageView.setSymbolImage(img, contentTransition: .replace.downUp)
+imageView.setSymbolImage(image, contentTransition: .replace.downUp)
 ```
 
 ![Replace](/Image/posts/sf-symbols-27-guide/ReplaceAnimation.gif)
@@ -456,7 +471,7 @@ Image(systemName: "fan.desk")
 imageView.addSymbolEffect(.bounce, options: .repeat(.periodic(2)))
 ```
 
-那另一种更常见的情况是，我希望在代码中有一个变量来控制效果的状态，使效果可以通过代码来开启或者关闭。这类效果属于 `Indefinite` 类型，遵循 `IndefiniteSymbolEffect` 协议。从 iOS 18 开始，上文介绍的 `Bounce`、`Variable Color`、`Pulse`、`Rotate`、`Wiggle`、`Breathe`，以及 `Scale`、`Dis/Appear`、`DrawOn/Off` 都支持这种行为。
+那另一种更常见的情况是，我希望在代码中有一个变量来控制效果的状态，使效果可以通过代码来开启或者关闭。这类效果属于 `Indefinite` 类型，遵循 `IndefiniteSymbolEffect` 协议。上文介绍的 `Bounce`、`Variable Color`、`Pulse`、`Rotate`、`Wiggle`、`Breathe`，以及 `Scale`、`Dis/Appear`、`DrawOn/Off` 都支持这种行为。
 
 `Indefinite` 表示效果会持续影响符号，直到被禁用或移除。这既可以表现为持续运动，也可以表现为保持某种状态，并不意味着动画一定会不断循环。你可以发现很多动画既支持 `Discrete`，也支持 `Indefinite`：它们既可以单独被触发固定次数，也可以通过变量来控制效果是否生效。
 
@@ -482,13 +497,13 @@ imageView.removeSymbolEffect(ofType: .variableColor)
 options: .nonRepeating,
 // 执行 5 次，期间每次 delay 1 秒
 options: .repeat(.periodic(5, delay: 1)),
-// 连续执行 linear 动画
+// 持续重复，支持时采用连续动画
 options: .repeat(.continuous),
 // 调整速度
 options: .speed(1),
 ```
 
-我们的 `Dis/Appear`、`DrawOn/Off` 动画有两种形式，上文提到的 `Indefinite` 是不影响组件外部、只在符号组件内部更新画面的那种形式。还有另一种在执行过程中会影响到整体的布局，需要使用 `.transition` 来修饰的，这种属于 `Transition` 类型，遵循 `TransitionSymbolEffect`。还剩下 `Repalce` 动画，单独属于 `Content Transition` 类型，遵循 `ContentTransitionSymbolEffect`。
+我们的 `Dis/Appear`、`DrawOn/Off` 动画有两种形式，上文提到的 `Indefinite` 是不影响组件外部、只在符号组件内部更新画面的那种形式。还有另一种在执行过程中会影响到整体的布局，需要使用 `.transition` 来修饰的，这种属于 `Transition` 类型，遵循 `TransitionSymbolEffect`。还剩下 `Replace` 动画，单独属于 `Content Transition` 类型，遵循 `ContentTransitionSymbolEffect`。
 
 ![Protocols27](/Image/posts/sf-symbols-27-guide/Protocols27.png)
 
@@ -502,17 +517,19 @@ options: .speed(1),
 
 ![Variants](/Image/posts/sf-symbols-27-guide/Variants.png)
 
-如果我们想要使用 `heart.circle.fill` 这个符号，除了通过字符串拼接名称的方式，我们还可以通过 `.symbolVarient` 来实现，这种实现方式有助于在代码中统一符号的风格。
+如果我们想要使用 `heart.circle.fill` 这个符号，除了通过字符串拼接名称的方式，我们还可以通过 `.symbolVariant` 来实现，这种实现方式有助于在代码中统一符号的风格。
 
 ```swift
+// SwiftUI
 Label("Heart", systemImage: "heart")
-    .symbolVarient(.circle.fill)
+    .symbolVariant(.circle.fill)
 
-let imageView = UIImageView(image: UIImage(systemName: "heart"))
-imageView.imageVariant = .circle.fill
+// UIKit
+// 以前 WWDC21 演示过 imageVariant 属性，可以用来指定符号变体，
+// 但现在的 SDK 中已经找不到 UIImageView.imageVariant 这个公开属性了。
 ```
 
-但要知道的是，在很多情况下，显示符号的视图会决定是否使用轮廓或填充，因此你无需指定变体。例如 iOS 标签页栏倾向于采用填充变体，而导航栏则采用轮廓变体，又比如 iOS 标签页倾向于采用填充变体，而 macOS 标签页更倾向于线性符号。
+系统组件会在某些场景中通过环境自动指定符号变体。例如在 SwiftUI 的 `TabView` 标签栏中，即使你写的是 `heart`，也会自动使用对应的 `.fill` 变体，`swipeActions` 中的符号也有类似行为，因此通常不需要手动拼接 `.fill`，这是 [SymbolVariants](https://developer.apple.com/documentation/swiftui/symbolvariants) 的环境机制。
 
 ### 本地化
 
@@ -522,7 +539,11 @@ imageView.imageVariant = .circle.fill
 
 ### Symbol Components
 
-SF Symbols 在定制化方面还有一个强大功能功能，那就是 Symbol Components，这个功能可以让你的自定义符号，可以以各种你熟悉的形态加入到你的 app 中，来适配 MacOS、iOS 以及你所需要的界面风格。你通过这个方式生成的新符号，系统会自动地帮你设置好需要 Erase 的图层，同时在所有的动画效果、渲染模式、字重和比例下运作良好，非常方便。同时你需要注意的是，通过这个方式生成的符号，不可以再手动的调整图层以及更改动画设置了。通过这种方式生成的符号，会自动附带 `replace` 动画下的 `MagicReplace` 的效果。
+SF Symbols 在定制化方面还有一个强大功能，那就是 Symbol Components。这个功能可以把基于可变模板的自定义符号与组件库中的外框、徽标、斜线等组件组合，让你的符号以各种你熟悉的形态加入到 app 中，来适配 macOS、iOS 以及你所需要的界面风格。通过这个方式生成的新符号，系统会自动地帮你设置好需要 Erase 的图层，并处理相应的渲染和动画行为，以及不同字重和比例下的表现，非常方便。
+
+同时你需要注意的是，通过这个方式生成的符号，不能再导出可编辑模板来手动修改路径和图层，但仍然可以在 App 中调整徽标的位置、斜线的长度、内部符号的尺寸等细节。组合后的符号也支持 `replace` 动画下的 `MagicReplace` 效果，在相关符号之间切换时，可以保留相同的部分。
+
+下图用几个熟悉的符号来示意这种组合关系，实际使用时，需要将自定义符号与组件库中提供的组件组合，并不是任意两个系统符号都可以直接相加。
 
 ![Component](/Image/posts/sf-symbols-27-guide/Component.png)
 
