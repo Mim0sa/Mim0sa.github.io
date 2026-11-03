@@ -14,10 +14,11 @@ SF Symbols 在 2025 年延续了既有框架，进一步增强了绘制和动画
 
 前情提要：
 
-* SF Symbols 6 使用指南
-* SF Symbols 5 使用指南
-* SF Symbols 4 使用指南
-* SF Symbols 3 使用指南
+* [SF Symbols 6 使用指南](https://mim0sa.github.io/posts/sf-symbols-6-guide)
+* [SF Symbols 5 使用指南](https://mim0sa.github.io/posts/sf-symbols-5-guide)
+* [SF Symbols 4 使用指南](https://mim0sa.github.io/posts/sf-symbols-4-guide)
+* [定制属于你的 Symbols](https://mim0sa.github.io/posts/custom-symbols)
+* [SF Symbols 3 使用指南](https://mim0sa.github.io/posts/sf-symbols-3-guide)
 
 ![WWDC24History](/Image/posts/sf-symbols-27-guide/WWDC2526History.png)
 
@@ -88,7 +89,7 @@ imageView.preferredSymbolConfiguration = .preferringMonochrome()
 
 #### 分层模式 Hierarchical
 
-从渲染的逻辑上来说每个符号都是预先分层的，如下图所示。符号按顺序最多分成三个层级：Primary，Secondary，Tertiary。**SF Symbols 的分层设定不仅在分层模式下有效，在其他渲染模式下也是有意义的**。
+从渲染的逻辑上来说每个符号都是预先分层的，如下图所示。分层模式和调色盘模式使用最多三个颜色层级：Primary，Secondary，Tertiary。要注意的是，这里的三个层级并不代表符号最多只有三个图层，实际的路径和图层可以更多，多色模式也不受三种颜色的限制。**SF Symbols 的分层设定不仅在分层模式下有效，在其他渲染模式下也是有意义的**。
 
 分层模式和单色模式一样，可以设置一个颜色。但是分层模式会以该颜色为基础，生成降低主颜色的不透明度而衍生出来的其他颜色（如下图中的**电池符号**看起来是由三种黄色组合而成）。
 
@@ -155,7 +156,7 @@ imageView.preferredSymbolConfiguration = .preferringMulticolor()
 
 ### 渐变效果
 
-除了改变渲染模式能够调整符号颜色之外，SF Symbols 7 中新增了渐变的效果，可自动从单个源颜色生成平滑的线性渐变效果，从而增加光效和维度，提升符号表现力。
+除了改变渲染模式能够调整符号颜色之外，SF Symbols 7 中新增了渐变的效果，可自动从单个源颜色生成平滑的线性渐变效果，从而增加光效和维度，提升符号表现力。渐变效果适用于所有渲染模式，可以与单色、分层、调色盘和多色模式搭配使用。
 
 ![多色模式下的 SF Symbols 渐变效果](/Image/posts/sf-symbols-27-guide/sf-symbols-gradient.png)
 
@@ -169,7 +170,7 @@ Image(systemName: "pc")
 
 有的时候，我们使用符号并不只想表达一个概念或者意象，也想体现一些数值、比例或者程度，例如 Wi-Fi 强度或者铃声音量，在 SF Symbols 中，对于这种场景可以使用可变符号。
 
-在 SF Symbol App 中的 `Variable` 目录中找到所有有可变符号，可以通过右侧面板的滑块来查看不同百分比程度下可变符号的形态。可变符号分为可变颜色和可变绘制，可变颜色是离散的，视觉效果是一块一块亮起来的感觉，可变绘制是连续的，像进度条那样流畅变化。
+在 SF Symbols App 中的 `Variable` 目录中找到所有可变符号，可以通过右侧面板的滑块来查看不同百分比程度下可变符号的形态。可变符号分为可变颜色和可变绘制，可变颜色是离散的，视觉效果是一块一块亮起来的感觉，可变绘制是连续的，像进度条那样流畅变化。
 
 > 在 SF Symbols App 中，你可以看到除了 draw 和 color 之外，还有一个 default mode。在 UIKit 和 AppKit 中，对应的是 `.automatic`，系统会根据符号自动选择可变模式。SwiftUI 虽然没有 `.automatic`，但 `symbolVariableValueMode` 接受 `nil`，[文档](https://developer.apple.com/documentation/swiftui/environmentvalues/symbolvariablevaluemode)将它描述为自动选择模式。
 >
@@ -177,7 +178,9 @@ Image(systemName: "pc")
 
 ![可变颜色（上排）与可变绘制（下排）演示](/Image/posts/sf-symbols-27-guide/VariableSymbols.gif)
 
-在代码中，我们在初始化符号时增加一个 `Double` 类型的 `variableValue` 参数，就可以实现可变颜色在不同程度下的不同形态。假如你的可变符号（例如上图 Wi-Fi 符号）可变颜色部分有三层，那么这个 `variableValue` 的将会三等分判定，0.2 和 0.5 的效果将会不一样，但是 0.1 和 0.2 的表现是一样的；如果是可变绘制，那么将根据 `variableValue` 的变化而实时变动。
+在代码中，我们在初始化符号时增加一个 `Double` 类型的 `variableValue` 参数，就可以实现可变颜色在不同程度下的不同形态。假如你的可变符号（例如上图 Wi-Fi 符号）可变颜色部分有三层，那么这个 `variableValue` 将会三等分判定，0.2 和 0.5 的效果将会不一样，但是 0.1 和 0.2 的表现是一样的；如果是可变绘制，那么将根据 `variableValue` 的变化而实时变动。
+
+要注意的是，`variableValue` 用 `0...1` 表达当前程度，本身不会让符号自动播放动画，需要由你的代码更新数值。后文的 `.symbolEffect(.variableColor)` 则是自动播放的预设动画。同一个符号可以同时支持可变颜色和可变绘制，但一次渲染只能选择其中一种。
 
 ```swift
 // SwiftUI
@@ -265,7 +268,7 @@ isActive.toggle()
 
 #### Wiggle
 
-`Wiggle` 是一个非常可爱的动画，它可以让符号从以任何角度做一个扭动的效果。可以在需要用户特别注意的地方使用这个动画，暗示或提示用户下一步操作的位置。你可以选择：上、下、左、右、顺/逆时针或者用数字指定的角度来掌控扭动的方向。如果你不指定方向，每个符号自身也有一个默认的方向。
+`Wiggle` 是一个非常可爱的动画，它可以让符号以任意角度做一个扭动的效果。可以在需要用户特别注意的地方使用这个动画，暗示或提示用户下一步操作的位置。你可以选择：上、下、左、右、顺/逆时针或者用数字指定的角度来掌控扭动的方向。如果你不指定方向，每个符号自身也有一个默认的方向。
 
 ```swift
 Image(systemName: "arrow.right.circle")
@@ -403,7 +406,7 @@ imageView.addSymbolEffect(.disappear) { context in
 
 绘制支持 `byLayer`、`wholeSymbol` 和 `individually` 三种绘制方式， 决定了符号多图层中的每个图层执行动画的时机。
 
-绘制的动画方向已经被预设，例如 `wind.snow` 的动画就是从左向右，一些阿拉伯语言的符号变体这是从右往左绘制的，像 `rainbow` 这样的对称符号则是从中间往两侧绘制的。
+绘制的动画方向已经被预设，例如 `wind.snow` 的动画就是从左向右，一些阿拉伯语言的符号变体则是从右往左绘制的，像 `rainbow` 这样的对称符号则是从中间往两侧绘制的。
 
 和 Appear / Disappear 一样，也有两种预期的效果，以及对应的不同实现方式。
 
@@ -434,9 +437,11 @@ withAnimation {
 
 #### Replace
 
-`Replace` 是一种替换符号的方案，在你需要给按钮替换或者更新符号时常常用到。他是一种 `.contentTransition`，你有三种动画 Direction 可以选择：`.upUp`，`.offUp`，`.downUp`，对应符号淡入淡出的形式。
+`Replace` 是一种替换符号的方案，在你需要给按钮替换或者更新符号时常常用到。他是一种 `.contentTransition`，你有三种动画配置可以选择：`.downUp` 会让旧符号缩小退出、新符号放大进入；`.upUp` 会让旧符号和新符号都以放大的方式退出和进入；`.offUp` 则会立即隐藏旧符号，让新符号放大进入。这里的 up 和 down 指的是缩放，而不是上下移动的方向。
 
 当你使用的两个符号只有某一部分不同，或者说你使用的两个符号都是从某个基础符号演变而来的时候，例如下图中的 `video.fill` 和 `video.slash.fill` ，这两个符号的差别只有一条 slash 线，那么系统默认使用 `MagicReplace` 动画，不会让摄像机符号消失再出现，使动画看起来更加流畅。如果你熟悉 Keynote 的话，这个效果就像 Keynote 里面的[神奇移动效果](https://education.apple.com/learning-center/T024609A-zh_CN)。
+
+SF Symbols 7 还为 `MagicReplace` 增加了相同外框的匹配：当两个符号有相同的外框时，系统可以保留外框，只替换内部不同的部分。
 
 如果你使用的符号拥有绘制效果，那么默认情况下，也会执行 `drawOff` -> `drawOn` 的绘制动画，这也是 `MagicReplace` 的表现。如下图第 3、4 个符号的动画。
 
@@ -471,16 +476,18 @@ Image(systemName: "fan.desk")
 imageView.addSymbolEffect(.bounce, options: .repeat(.periodic(2)))
 ```
 
+在 SwiftUI 中，`value:` 每次发生变化都会触发动画，如果传入的是 `Bool`，变成 `true` 或 `false` 都会触发。因此，如果你想在每次点击时触发一次动画，可以传入一个计数器，并在点击时递增。
+
 那另一种更常见的情况是，我希望在代码中有一个变量来控制效果的状态，使效果可以通过代码来开启或者关闭。这类效果属于 `Indefinite` 类型，遵循 `IndefiniteSymbolEffect` 协议。上文介绍的 `Bounce`、`Variable Color`、`Pulse`、`Rotate`、`Wiggle`、`Breathe`，以及 `Scale`、`Dis/Appear`、`DrawOn/Off` 都支持这种行为。
 
-`Indefinite` 表示效果会持续影响符号，直到被禁用或移除。这既可以表现为持续运动，也可以表现为保持某种状态，并不意味着动画一定会不断循环。你可以发现很多动画既支持 `Discrete`，也支持 `Indefinite`：它们既可以单独被触发固定次数，也可以通过变量来控制效果是否生效。
+`isActive:` 则控制效果是否生效：`true` 时启用，`false` 时取消。`Indefinite` 表示效果会持续影响符号，直到被禁用或移除。这既可以表现为持续运动，也可以表现为保持某种状态，并不意味着动画一定会不断循环。你可以发现很多动画既支持 `Discrete`，也支持 `Indefinite`：它们既可以单独被触发固定次数，也可以通过变量来控制效果是否生效。
 
 ```swift
 // SwiftUI
 Image(systemName: "fan.desk")
     .symbolEffect(
         .rotate,
-        options: .repeat,
+        options: .repeat(.periodic),
         isActive: isActive
     )
 
@@ -490,7 +497,7 @@ imageView.addSymbolEffect(.variableColor)
 imageView.removeSymbolEffect(ofType: .variableColor)
 ```
 
-无论是 `Discrete` 动画还是 `Indefinite` 动画，都可以用代码控制动画执行的频率。
+对于支持重复播放的效果，可以用代码设置动画的执行次数、重复间隔和速度。要注意的是，像 `Scale`、`Appear` 这样改变并保持符号状态的效果，并不能通过设置重复次数来让它们不断循环。
 
 ```swift
 // 执行一次
@@ -508,6 +515,8 @@ options: .speed(1),
 ![Protocols27](/Image/posts/sf-symbols-27-guide/Protocols27.png)
 
 > 特别注意，iOS 18 之前  `bounce` 不支持 `Indefinite` 协议。
+
+最后也别忘了无障碍体验：只有符号的按钮，也应该让 VoiceOver 能读出操作含义，例如“收藏”，而不是符号名称。对于持续旋转、缩放等效果，可以通过 SwiftUI 的 `accessibilityReduceMotion` 或 UIKit 的 `UIAccessibility.isReduceMotionEnabled` 检查“减少动态效果”设置，按需减少动画或提供静态状态提示。
 
 ## 符号的扩展
 
@@ -547,23 +556,16 @@ SF Symbols 在定制化方面还有一个强大功能，那就是 Symbol Compone
 
 ![Component](/Image/posts/sf-symbols-27-guide/Component.png)
 
+### 系统版本兼容
 
+SF Symbols App 的版本、符号本身的可用版本和功能 API 的系统要求，需要分开看。下载了最新版 App，并不代表旧系统也能使用其中的所有符号和效果。本文主要动画和新功能的最低系统要求如下：
 
+| 功能 | iOS / iPadOS | macOS |
+| --- | --- | --- |
+| Bounce、Scale、Pulse、Variable Color 动画、Appear / Disappear、Replace | 17 | 14 |
+| Wiggle、Rotate、Breathe、Magic Replace、新版 RepeatBehavior | 18 | 15 |
+| DrawOn / DrawOff、可变绘制、渐变效果 | 26 | 26 |
 
+这里的版本指功能 API，具体符号及其效果支持仍需单独确认。使用前可以在 SF Symbols App 的信息面板中查看符号的可用版本；兼容旧系统时，通过 `#available` 判断新 API，并为不可用的符号准备旧符号或图片作为替代。
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+另外，同一个符号在不同版本中也可能使用不同的名称。例如麦克风符号，旧名称是 `mic`，新名称 `microphone` 从 iOS 18 / macOS 15 开始可用，兼容更早的系统时需要使用 `mic`。如果从最新版 SF Symbols App 复制的名称在旧系统上无法显示，不一定是这个符号不存在，也可能只是名称不同，需要核对目标系统支持的旧名称。更多说明可以参考[官方文档](https://developer.apple.com/documentation/uikit/configuring-and-displaying-symbol-images-in-your-ui)。
