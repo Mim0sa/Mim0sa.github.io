@@ -294,7 +294,9 @@ header a {
 h1,
 h2,
 h3,
-h4 {
+h4,
+h5,
+h6 {
     font-weight: 700;
     line-height: 1.2;
 }
@@ -316,6 +318,20 @@ h3 {
 
 h4 {
     font-size: 1.2rem;
+    line-height: 1.4;
+    margin: 28px 0 12px;
+}
+
+h5 {
+    font-size: 1.1rem;
+    line-height: 1.4;
+    margin: 24px 0 10px;
+}
+
+h6 {
+    font-size: 1rem;
+    line-height: 1.5;
+    margin: 20px 0 8px;
 }
 
 p {
@@ -704,6 +720,60 @@ p {
     font-family: var(--font-code);
     font-size: 0.82em;
     padding: 0.12em 0.32em;
+}
+
+/* Article tables: keep wide content scrollable on small screens. */
+.content table {
+    --table-rule: color-mix(in srgb, var(--rule) 55%, var(--surface));
+    border-collapse: collapse;
+    display: block;
+    font-size: 0.9rem;
+    line-height: 1.65;
+    margin: 28px 0;
+    max-width: 100%;
+    overflow-x: auto;
+    width: 100%;
+}
+
+.content th,
+.content td {
+    border-bottom: 1px solid var(--table-rule);
+    padding: 14px 18px;
+    text-align: left;
+    vertical-align: top;
+}
+
+.content th {
+    background: var(--surface-raised);
+    border-top: 1px solid var(--table-rule);
+    font-weight: 650;
+    white-space: nowrap;
+}
+
+.content th + th,
+.content td + td {
+    border-left: 1px solid var(--table-rule);
+}
+
+.content th:first-child,
+.content td:first-child {
+    border-left: 1px solid var(--table-rule);
+}
+
+.content th:last-child,
+.content td:last-child {
+    border-right: 1px solid var(--table-rule);
+}
+
+.content td {
+    background: var(--surface);
+    font-variant-numeric: tabular-nums;
+}
+
+.content th:first-child,
+.content td:first-child {
+    min-width: 18rem;
+    width: 100%;
 }
 
 .content pre {
