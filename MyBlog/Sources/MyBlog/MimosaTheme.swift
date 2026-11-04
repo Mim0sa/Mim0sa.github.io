@@ -102,6 +102,7 @@ private struct FoundationHTMLFactory<Site: Website>: HTMLFactory {
             ),
             .body {
                 ThemeScript()
+                AnalyticsScript()
                 SiteHeader(
                     context: context,
                     selectedSelectionID: postsSectionID
@@ -135,6 +136,7 @@ private struct FoundationHTMLFactory<Site: Website>: HTMLFactory {
             ),
             .body {
                 ThemeScript()
+                AnalyticsScript()
                 SiteHeader(context: context, selectedSelectionID: section.id)
                 Wrapper {
                     if !section.body.isEmpty {
@@ -198,6 +200,7 @@ private struct FoundationHTMLFactory<Site: Website>: HTMLFactory {
                     .class("item-page"),
                     .components {
                     ThemeScript()
+                    AnalyticsScript()
                     SiteHeader(context: context, selectedSelectionID: item.sectionID)
                     Wrapper {
                         Article {
@@ -239,6 +242,7 @@ private struct FoundationHTMLFactory<Site: Website>: HTMLFactory {
                 ),
                 .body {
                     ThemeScript()
+                    AnalyticsScript()
                     SiteHeader(
                         context: context,
                         selectedSelectionID: postsSectionID
@@ -268,6 +272,7 @@ private struct FoundationHTMLFactory<Site: Website>: HTMLFactory {
             ),
             .body {
                 ThemeScript()
+                AnalyticsScript()
                 SiteHeader(context: context, selectedSelectionID: nil)
                 Wrapper(page.body)
                 SiteFooter()
@@ -297,6 +302,16 @@ private struct Wrapper: ComponentContainer {
 private struct ThemeScript: Component {
     var body: Component {
         Node<HTML.BodyContext>.script(.src("/theme.js"))
+    }
+}
+
+private struct AnalyticsScript: Component {
+    var body: Component {
+        Node<HTML.BodyContext>.script(
+            .defer(),
+            .src("https://cloud.umami.is/script.js"),
+            .data(named: "website-id", value: "d9624cd6-e0d8-4039-a4a1-7126dc84fa49")
+        )
     }
 }
 
